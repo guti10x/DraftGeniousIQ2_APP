@@ -4,9 +4,50 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException
 import openpyxl
 import time
+import mysql.connector
 
 print("Starting scraper...")
 
+# CONEXIÓN A LA BD
+print("Conecting to database...")
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345",
+    database="draftgeniousiq2"
+)
+
+# Crear un cursor para ejecutar consultas SQL
+try:
+    cursor = conexion.cursor()
+    print("Conexión a la base de datos exitosa")
+except:
+    print("No se puedo conectar a la base de datos")
+
+# ONTENER IDS DE LOS EQUIPOS DE LA LIGA FANTASY EN LA BD 
+print("Obteniendo ids de los equipos en la base de datos:")
+# Consulta SQL para seleccionar id_equipo y nombre de la tabla equipos
+consulta = "SELECT id_equipo, nombre FROM equipos"
+
+# Ejecutar la consulta
+cursor.execute(consulta)
+
+# Obtener los resultados
+resultados = cursor.fetchall()
+
+# Construir un array de pares clave-valor
+array_clave_valor = []
+for fila in resultados:
+    id_equipo, nombre = fila
+    array_clave_valor.append({"id": id_equipo, "nombre": nombre})
+
+# Imprimir el array resultado
+print(array_clave_valor)
+
+cursor.close() 
+
+# EMPEZAR SCRAPER
+print("Lanzando driver...")
 driver = webdriver.Chrome()
 
 # Navega a la página web que deseas hacer scraping
@@ -119,6 +160,41 @@ for elemento_li in elementos_li:
     for div_value in div_values:
         print(div_value.text)
 
+    #Obtener Fk del equipo al que pertenecen las estadísticas con el nombre
+    nombre_a_buscar = name.text
+
+     # Buscar el ID asociado al nombre
+    id_asociado = None
+    for elemento in array_clave_valor:
+        if elemento["nombre"] == nombre_a_buscar:
+            id_asociado = elemento["id"]
+            break
+
+    if id_asociado is not None:
+        print(f"El ID de '{name.text}' es: {id_asociado}")
+    else:
+        print(f"No se encontró ningún ID asociado al nombre '{nombre_a_buscar}'")
+
+    #Procesar datos
+    puntos=div_values[0].text.replace('.', '')
+    media_puntos_jornada=div_values[1].text.replace(',', '.')
+    valor_team=div_values[2].text.replace(',', '.')
+    valor_team=valor_team.replace('M', '')
+
+    # Crear un cursor para ejecutar consultas SQL
+    cursor = conexion.cursor()
+
+    # Consulta SQL para insertar datos en una tabla llamada 'datos'
+    consulta = "INSERT INTO estadísticas_equipos (id_equipo, timestamp, puntos, media_puntos_jornada, valor, num_jugadores) VALUES (%s, NOW(), %s, %s, %s, %s)"
+    
+    # Ejecutar la consulta
+    try:
+        cursor.execute(consulta, (id_asociado, puntos, media_puntos_jornada, valor_team, div_values[3].text))
+        conexion.commit()  # Confirmar la transacción
+        print(f"Datos insertados correctamente en la BD.")
+    except mysql.connector.Error as err:
+        print(f"Error al insertar datos en la BD: {err}")
+
     # JUGADORES TITULARES DEL EQUIPO
     # Encontrar todos los elementos <a> con la clase "btn btn-player-gw lineup-player"
     elementos_a = driver.find_elements(By.CSS_SELECTOR, "a.btn.btn-player-gw.lineup-player")
@@ -158,5 +234,7 @@ for elemento_li in elementos_li:
     print("Equipo scrapeado completo.")
     driver.back() 
 
+cursor.close()
+conexion.close()
 driver.quit()   
 print("Todos los equipos scrapeados")
