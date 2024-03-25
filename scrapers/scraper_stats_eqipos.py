@@ -77,7 +77,7 @@ while True:
         print("try2: Refresh()")
         #Refrescar página
         driver.refresh()
-        time.sleep(5)
+        time.sleep(4)
     
 print("Btn Tabla pulsado")
 
@@ -85,6 +85,22 @@ print("Btn Tabla pulsado")
 elementos_li = driver.find_elements(By.CSS_SELECTOR, "li[class='']")
 # Imprimir el número de elementos encontrados
 print("Número de equipos encontrados:", len(elementos_li))
+
+if len(elementos_li)==0:
+    #Mostrar error por interfaz
+    print("\nAnuncio detectado, reiniciando driver (1)...")
+    print("try2: Refresh()")
+    #Refrescar página
+    driver.refresh()
+    time.sleep(4)
+    button = driver.find_element(By.XPATH, '//*[@id="content"]/header/div[2]/ul/li[4]/a')
+    time.sleep(0.5)
+    button.click()
+    print("Anuncio esquivado")
+    # Encontrar todos los elementos <li> sin ninguna clase específica
+    elementos_li = driver.find_elements(By.CSS_SELECTOR, "li[class='']")
+    # Imprimir el número de elementos encontrados
+    print("Número de equipos encontrados:", len(elementos_li))
 
 for elemento_li in elementos_li:
     elemento_li.click()
