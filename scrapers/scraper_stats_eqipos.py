@@ -102,6 +102,19 @@ for elemento_li in elementos_li:
     print("Estadisticas del equipo:", name.text)
     for div_value in div_values:
         print(div_value.text)
+
+    # JUGADORES TITULARES DEL EQUIPO
+    # Encontrar todos los elementos <a> con la clase "btn btn-player-gw lineup-player"
+    elementos_a = driver.find_elements(By.CSS_SELECTOR, "a.btn.btn-player-gw.lineup-player")
+    print("Número de jugaodres titulares del equipo: ", len(elementos_a))
+
+    # Iterar sobre los elementos <a> encontrados
+    for elemento_a in elementos_a:
+        # Encontrar el elemento <div class="name"> dentro de cada elemento <a>
+        elemento_name = elemento_a.find_element(By.CSS_SELECTOR, "div.name")
+        # Imprimir el texto del elemento <div class="name">
+        print(elemento_name.text)
+    
         
     driver.back()
 
