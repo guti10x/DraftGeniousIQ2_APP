@@ -106,7 +106,7 @@ for elemento_li in elementos_li:
     # JUGADORES TITULARES DEL EQUIPO
     # Encontrar todos los elementos <a> con la clase "btn btn-player-gw lineup-player"
     elementos_a = driver.find_elements(By.CSS_SELECTOR, "a.btn.btn-player-gw.lineup-player")
-    print("Número de jugaodres titulares del equipo: ", len(elementos_a))
+    print("Número de jugadores titulares del equipo: ", len(elementos_a))
 
     # Iterar sobre los elementos <a> encontrados
     for elemento_a in elementos_a:
@@ -115,8 +115,32 @@ for elemento_li in elementos_li:
         # Imprimir el texto del elemento <div class="name">
         print(elemento_name.text)
     
-        
-    driver.back()
+    # JUGADORES SUPLENTES
+    #Cambiar a la subventana equipo
+    button = driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div[3]/div/div[2]/button')
+    button.click()
+
+    
+    # Encontrar todos los elementos con la clase "player-row"
+    player_rows = driver.find_elements(By.XPATH,'//div[@class="player-row"]')
+    print("Número de jugadores TOTALES del equipo: ", len(player_rows))
+
+    for index in range(len(player_rows)):
+        print(index)
+        time.sleep(1) 
+        player_rows = driver.find_elements(By.XPATH,'//div[@class="player-row"]')
+        player_rows[index].click()
+        time.sleep(1)
+        name = driver.find_element(By.XPATH,'/html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[2]')
+        surname = driver.find_element(By.XPATH,'/html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[3]')
+        jugador= name.text + " " +surname.text
+        print(jugador)
+        driver.back()
+        time.sleep(2)  
+        player_rows = driver.find_elements(By.XPATH,'//div[@class="player-row"]')
+        driver.execute_script("arguments[0].scrollIntoView(true);", player_rows[index])  
+    print("Equipo scrapeado completo.")
+    driver.back() 
 
 driver.quit()   
 print("Todos los equipos scrapeados")
