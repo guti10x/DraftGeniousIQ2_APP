@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   PRIMARY KEY (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.equipos: ~18 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.equipos: ~17 rows (aproximadamente)
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
 INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
 	(1, 'Admin'),
@@ -37,9 +37,9 @@ INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
 	(8, 'jluzon'),
 	(9, 'M31-G2-UA2CCC'),
 	(10, 'M32-G9-PREDITECH INSIGHTS'),
-	(11, ' M32-G7-KleinGroup'),
+	(11, 'M32-G7-KleinGroup'),
 	(12, 'M32-G8 - Los Capys'),
-	(13, ' M32-G2-dreamx1'),
+	(13, 'M32-G2-dreamx1'),
 	(14, 'M31-G4-DLA'),
 	(15, 'M32-G6_Jammin&#039'),
 	(16, 'M32-G2-xGarcii'),
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `estadísticas_equipos` (
   KEY `id_equipo` (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~14 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadísticas_equipos` DISABLE KEYS */;
 INSERT INTO `estadísticas_equipos` (`id`, `id_equipo`, `timestamp`, `puntos`, `media_puntos_jornada`, `valor`, `num_jugadores`) VALUES
 	(10, 1, '2024-03-25 10:52:49', 1044, 49.7, 317.9, 25),
@@ -124,19 +124,18 @@ INSERT INTO `estadísticas_equipos` (`id`, `id_equipo`, `timestamp`, `puntos`, `
 -- Volcando estructura para tabla draftgeniousiq2.jugadores
 CREATE TABLE IF NOT EXISTS `jugadores` (
   `id_player` int(11) NOT NULL AUTO_INCREMENT,
-  `id_eqipo` int(11) NOT NULL,
-  `posicion` int(11) DEFAULT NULL,
-  `equipo` int(11) DEFAULT NULL,
-  `media_puntos_local` int(11) DEFAULT NULL,
-  `media_puntos_visitante` int(11) DEFAULT NULL,
+  `id_eqipo` int(11) DEFAULT NULL,
+  `nombre` text NOT NULL,
+  `posicion` text NOT NULL,
+  `equipo` text DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
-  `altura` int(11) DEFAULT NULL,
+  `altura` float DEFAULT NULL,
   `peso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_player`) USING BTREE,
   KEY `id_eqipo` (`id_eqipo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.jugadores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.jugadores: ~21 rows (aproximadamente)
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
 /*!40000 ALTER TABLE `jugadores` ENABLE KEYS */;
 

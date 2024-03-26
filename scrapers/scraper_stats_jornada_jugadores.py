@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException
 import openpyxl
 import time
-import os
+import mysql.connector
 
 teams_data = {
         "Real Madrid": "https://cdn.gomister.com/file/cdn-common/teams/15.png?version=20231117",
@@ -236,7 +236,18 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
         mundo_deportivo_points="NA"
         ultimo_rival="NA"
         result="NA"
+
+    # EQUIPO PROPIETARIO DEL JUGADOR 
+    owner=""  
+    try:
+        # Intentar encontrar el elemento
+        elemento_box_owner = driver.find_element(By.CSS_SELECTOR, "div.box.box-owner")
         
+        # Buscar la etiqueta <strong> dentro del elemento
+        owner = elemento_box_owner.find_element(By.XPATH, "./p/strong").text
+    
+    except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+        print("El jugador no está en propiedad de ningún equipo.")
 
     #### IMPRIMIR TODOS LOS DATOS ####
     print("_____________________________________________")
@@ -244,6 +255,7 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     print(f"Valor: {valor}")
     print(f"Posición: {posicion}")
     print(f"Equipo: {equipo}")
+    print(f"Propietario MF: {owner}")
 
     print("- - - - - - - - - - - - - - - - - - - - - - - - - -")
 
@@ -267,6 +279,41 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     for clave, valor in stadisticas_player.items():
         print(f"{clave}: {valor}")
     print("_____________________________________________")
+    
+    #Obtener Fk del equipo al que pertenecen las estadísticas con el nombre
+    # Buscar el ID asociado al nombre
+    id_asociado = None
+    for elemento in array_clave_valor:
+        if elemento["nombre"] == owner:
+            id_asociado = elemento["id"]
+            break
+
+    if id_asociado is not None:
+        print(f"El ID de '{owner}' es: {id_asociado}")
+    else:
+        print(f"No se encontró ningún ID asociado al nombre '{owner}'")
+
+    #Preprocesar datos antes de insertar los datos en la bd
+    nombre_completo= nombre.text + " " + apellido.text
+    if altura is not None:
+        altura=altura.replace(',', '.')
+        altura=altura.replace('m', '')
+    if peso is not None:
+        peso=peso.replace('kg', '')
+
+    # Insertar datos en la tabla
+    cursor = conexion.cursor()
+
+    query = "INSERT INTO jugadores (id_eqipo, nombre, posicion, equipo, edad, altura, peso) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    valores = (id_asociado, nombre_completo, posicion, equipo, edad, altura, peso)
+
+    try:
+        cursor.execute(query, valores)
+        conexion.commit()
+        print("Datos insertados correctamente.")
+    except Exception as e:
+        print("Error al insertar datos:", e)
+
 
 def actualizar_version(version):
       for equipo, url in teams_data.items():
@@ -285,6 +332,44 @@ def actualizar_version(version):
 
 
 print("Starting scraper...")
+
+# CONEXIÓN A LA BD
+print("Conecting to database...")
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345",
+    database="draftgeniousiq2"
+)
+
+# Crear un cursor para ejecutar consultas SQL
+try:
+    cursor = conexion.cursor()
+    print("Conexión a la base de datos exitosa")
+except:
+    print("No se puedo conectar a la base de datos")
+
+# ONTENER IDS DE LOS EQUIPOS DE LA LIGA FANTASY EN LA BD 
+print("Obteniendo ids de los equipos en la base de datos:")
+# Consulta SQL para seleccionar id_equipo y nombre de la tabla equipos
+consulta = "SELECT id_equipo, nombre FROM equipos"
+
+# Ejecutar la consulta
+cursor.execute(consulta)
+
+# Obtener los resultados
+resultados = cursor.fetchall()
+
+# Construir un array de pares clave-valor
+array_clave_valor = []
+for fila in resultados:
+    id_equipo, nombre = fila
+    array_clave_valor.append({"id": id_equipo, "nombre": nombre})
+
+# Imprimir el array resultado
+print(array_clave_valor)
+
+cursor.close() 
 
 #DEFINIR JORNADA A SCRAPEAR
 jornada_a_scrapear = "J29"   #IMPORTANTE que la variable mantenga la J para luego buscar la jornada deseada
@@ -463,7 +548,8 @@ while True:
     #Pulsar Ver más
     try:
         print("Click into next page")
-        ver_mas = driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[1]/button')
+        ver_mas = driver.find_element(By.CSS_SELECTOR, 'button.btn.btn-grey.search-players-more[data-scope="globalPlayers"]')
+
         ver_mas.click()                               
         time.sleep(4)
     except:
@@ -484,5 +570,6 @@ while True:
     index=0
     pag+=1     
 
-driver.quit()    
+driver.quit()
+conexion.close()    
 print("Todos los jugadores scrapeados")
