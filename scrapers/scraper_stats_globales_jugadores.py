@@ -1,10 +1,14 @@
 # Dependencias
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException
 import openpyxl
 import time
 import mysql.connector
+
+#DEFINIR JORNADA A SCRAPEAR
+jornada_a_scrapear = "J29"   #IMPORTANTE que la variable mantenga la J para luego buscar la jornada deseada
 
 teams_data = {
         "Real Madrid": "https://cdn.gomister.com/file/cdn-common/teams/15.png?version=20231117",
@@ -40,9 +44,34 @@ def extraer_info_jugador():
 
     stadisticas_player = {}
 
-    nombre = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[2]")
-    apellido = driver.find_element(By.XPATH, " /html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[3]")
-    valorS= driver.find_element(By.XPATH,'/html/body/div[6]/div[3]/div[2]/div[2]/div/div/div[1]/div[2]')
+    #NOMBRE JUGADOR
+    try:
+        nombre = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[2]")
+        apellido = driver.find_element(By.XPATH, " /html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[3]")
+    except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+        driver.refresh()
+        time.sleep(3)
+        # Encontrar el elemento padre con la clase "left"
+        elemento_padre = driver.find_element(By.CLASS_NAME, "left")
+        
+        # Encontrar los elementos hijos dentro del elemento padre
+        nombre = elemento_padre.find_element(By.CLASS_NAME, "name")
+        apellido = elemento_padre.find_element(By.CLASS_NAME, "surname")
+    
+    #VALOR JUGADOR
+    try:
+        valorS= driver.find_element(By.XPATH,'/html/body/div[6]/div[3]/div[2]/div[2]/div/div/div[1]/div[2]')  
+    except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+        driver.refresh()
+        time.sleep(3)
+        # Encontrar el elemento padre con la clase "label-value-scroll"
+        elemento_padre = driver.find_element(By.CLASS_NAME, "label-value-scroll")
+        
+        # Encontrar el elemento hijo con la clase "label" que contiene "Valor"
+        label_valor = elemento_padre.find_element(By.XPATH, "//div[contains(@class, 'label') and contains(text(), 'Valor')]")
+        
+        # Desde el elemento padre, navegar al siguiente elemento hermano que contiene el valor
+        valor = label_valor.find_element(By.XPATH, "./following-sibling::div[@class='value']")
     valor=valorS.text
 
     try:
@@ -207,8 +236,6 @@ print(array_clave_valor)
 
 cursor.close() 
 
-#DEFINIR JORNADA A SCRAPEAR
-jornada_a_scrapear = "J29"   #IMPORTANTE que la variable mantenga la J para luego buscar la jornada deseada
 print(f"Jornada seleccionada: {jornada_a_scrapear}")
 
 driver = webdriver.Chrome()
@@ -317,7 +344,7 @@ index=0
 absolute=1
 jornada_absolute=""
 progress=0
-jugaodres_error_scraping = []
+jugadores_error_scraping = []
 
 while True:
     # Encontrar todos los elementos li
@@ -345,10 +372,11 @@ while True:
             #Almacenamos el nombre del jugador al que no se pudo acceder para scrapear sus datos asociados
             nombre_jugador = elementos_li[index].find_element(By.CSS_SELECTOR, ".info .name").text
             print(f"El jugador {nombre_jugador} no pudo ser scrapeado !!!!!!")
-            jugaodres_error_scraping.append(nombre_jugador)
+            jugadores_error_scraping.append(nombre_jugador)
 
             #Clickar en el siguiente elemento
-            elementos_li[index+1].click()
+            index+=1
+            elementos_li[index].click()
 
         time.sleep(1)
             
@@ -420,12 +448,60 @@ while True:
     print("------------------------------------")
         
     index=0
-    pag+=1     
+    pag+=1
 
+print("Todos los jugadores scrapeados a excepción de:")
+for elemento in jugadores_error_scraping:
+    print(elemento)     
+
+#SEGUNDO INTENTO DE SCRAPING (UTILIZAR BUSCADOR DE JUGADORES) para jugadores que no pudieron ser accedidos y scrapeados 
+    
+driver.back()
+time.sleep(4)
+index=0
+
+#Preprocesamos los nombres de los jugadores eliminando el . que abrevia su nombre para que pueda buscarse en el buscados.
+for i in range(len(jugadores_error_scraping)):
+    jugadores_error_scraping[i] = jugadores_error_scraping[i].replace(".", "")
+
+try:
+    # Intentar encontrar y pulsar btn buscar
+    btn_buscar = driver.find_element(By.XPATH, '//*[@id="inner-content"]/div[1]/div[1]/button[1]')
+    btn_buscar.click()
+except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+    driver.refresh()
+    print("Anuncio detectado, reiniciando driver")
+    # Intentar encontrar y pulsar btn buscar
+    btn_buscar = driver.find_element(By.CSS_SELECTOR, "button.btn-search-more")
+    btn_buscar.click()
+
+
+# Itera sobre la lista de jugadores y entra cada uno en el input de búsqueda
+for jugador in jugadores_error_scraping:
+    print(f"BUscando a {jugador}")
+    # Encuentra el input dentro del div con la clase "sw-top-center"
+    input_busqueda = driver.find_element(By.CSS_SELECTOR, "div.sw-top-center input.search-players-input")
+    print("Cleaning input...")
+    input_busqueda.clear()  # Limpiar el campo de búsqueda
+    print("Putting input...")
+    input_busqueda.send_keys(jugador)  
+    time.sleep(6)  
+    # Presionar la tecla Enter  
+    input_busqueda.send_keys(Keys.ENTER)
+    time.sleep(6)  
+    
+    try:
+        print("Searching player")
+        elementos_lis = driver.find_element(By.CSS_SELECTOR, "div.player-row")
+        elementos_lis.click()
+        time.sleep(1)
+        extraer_info_jugador()
+        driver.back()
+        time.sleep(1)
+    except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e: 
+        print(f"El jugador {jugador} es inaccesible. pruebe insertándolo manualmente.")
+
+print("Scraping finalizado")
 #Cerrar conexión a la bd y driver
 driver.quit()
 conexion.close()   
-
-print("Todos los jugadores scrapeados a excepción de:")
-for elemento in jugaodres_error_scraping:
-    print(elemento)
