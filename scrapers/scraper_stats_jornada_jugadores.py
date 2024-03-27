@@ -1,10 +1,16 @@
 # Dependencias
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException
 import openpyxl
 import time
 import mysql.connector
+
+#DEFINIR JORNADA A SCRAPEAR:
+jornadaSC=29 
+jornada_a_scrapear = "J" + str(jornadaSC)  #IMPORTANTE que la variable mantenga la J para luego buscar la jornada deseada
+
 
 teams_data = {
         "Real Madrid": "https://cdn.gomister.com/file/cdn-common/teams/15.png?version=20231117",
@@ -43,22 +49,11 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     nombre = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[2]")
     apellido = driver.find_element(By.XPATH, " /html/body/div[6]/div[3]/div[2]/div[1]/div/div[1]/div[3]")
     valorS= driver.find_element(By.XPATH,'/html/body/div[6]/div[3]/div[2]/div[2]/div/div/div[1]/div[2]')
-    valor=valorS.text
+    valorMercado=valorS.text                      
 
     media_puntos_local = obtener_valor_por_etiqueta("Media en casa")
     media_puntos_visitante = obtener_valor_por_etiqueta("Media fuera")
-    try:
-        edad = obtener_valor_por_etiqueta("Edad")
-        altura = obtener_valor_por_etiqueta("Altura")
-        peso = obtener_valor_por_etiqueta("Peso")
-    except:
-        edad = None
-        altura = None
-        peso = None
-                
-    if peso == "kg":
-        peso = None
-
+    
             
     #### OBTENER EQUIPO JUGADOR ####
 
@@ -103,24 +98,6 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
             else:
                 print("No se encontró el próximo partido")
                 
-    #### OBTENER POSICIÓN DEL JUGADOR ####
-    elemento = driver.find_element(By.XPATH, '//i[contains(@class, "pos-")]')
-    # Obtener el valor del atributo class
-    clases = elemento.get_attribute("class").split()
-
-    # Determinar la posición
-    posicion = None
-    for clase in clases:
-        if clase.startswith("pos-") and "pos-big" in clases:
-            if clase == "pos-1":
-                posicion = "PT"
-            elif clase == "pos-2":
-                posicion = "DF"
-            elif clase == "pos-3":
-                posicion = "MC"
-            elif clase == "pos-4":
-                posicion = "DL"
-            break
     #### OBTENER PUNTOS DEL JUGADOR ####
     # Encontrar jornada 
     elementos_principales = driver.find_elements(By.CLASS_NAME, 'btn-player-gw')
@@ -251,9 +228,8 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
 
     #### IMPRIMIR TODOS LOS DATOS ####
     print("_____________________________________________")
-    print(f"-{progress+1}. {nombre.text}, {apellido.text}")
-    print(f"Valor: {valor}")
-    print(f"Posición: {posicion}")
+    print(f"-{progress+1}. {nombre.text} {apellido.text}")
+    print(f"Valor mercado: {valorMercado}")
     print(f"Equipo: {equipo}")
     print(f"Propietario MF: {owner}")
 
@@ -273,47 +249,134 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     print(f"Próximo partido es local: {local}")
     print(f"Media en casa: {media_puntos_local}")
     print(f"Media fuera: {media_puntos_visitante}")
-    print(f"Edad: {edad}")
-    print(f"Altura: {altura}")
-    print(f"Peso: {peso}")
     for clave, valor in stadisticas_player.items():
         print(f"{clave}: {valor}")
     print("_____________________________________________")
     
+
     #Obtener Fk del equipo al que pertenecen las estadísticas con el nombre
-    # Buscar el ID asociado al nombre
-    id_asociado = None
-    for elemento in array_clave_valor:
-        if elemento["nombre"] == owner:
-            id_asociado = elemento["id"]
-            break
-
-    if id_asociado is not None:
-        print(f"El ID de '{owner}' es: {id_asociado}")
-    else:
-        print(f"No se encontró ningún ID asociado al nombre '{owner}'")
-
-    #Preprocesar datos antes de insertar los datos en la bd
     nombre_completo= nombre.text + " " + apellido.text
-    if altura is not None:
-        altura=altura.replace(',', '.')
-        altura=altura.replace('m', '')
-    if peso is not None:
-        peso=peso.replace('kg', '')
+    id_jugador=0
 
-    # Insertar datos en la tabla
+    # Buscar el nombre en el diccionario
+    if nombre_completo in array_clave_valor.values():
+        # Obtener la clave (ID del jugador) asociada al nombre
+        id_jugador = next(key for key, value in array_clave_valor.items() if value == nombre_completo)
+        print(f"El ID del jugador '{nombre_completo}' es: {id_jugador}")
+    else:
+        print(f"No se encontró el nombre '{nombre_completo}' en la base de datos.")
+
+
+    #Preprocesamiento de datos antes de insertar en la BD
+    # Reemplazar comas por puntos en las variables
+    valorMercado = valorMercado.replace(".", "")
+    media_puntos_local = media_puntos_local.replace(",", ".")
+    media_puntos_visitante = media_puntos_visitante.replace(",", ".")
+    # Verificar si goles_esperados es None antes de intentar reemplazar comas
+    goles_esperados = stadisticas_player.get("Goles esperados")
+    if goles_esperados is not None:
+        goles_esperados = goles_esperados.replace(",", ".")
+
+    # Verificar si asistencias_esperadas es None antes de intentar reemplazar comas
+    asistencias_esperadas = stadisticas_player.get("MATCH_STAT_expectedAssists")
+    if asistencias_esperadas is not None:
+        asistencias_esperadas = asistencias_esperadas.replace(",", ".")
+
+
+    # REALIZAR INSERT DE DATOS DE ESTADÍSTICAS INDIVIDUALES DE CADA JUGADOR A LA BD
+
+    # Crea un cursor para ejecutar consultas SQL
     cursor = conexion.cursor()
 
-    query = "INSERT INTO jugadores (id_eqipo, nombre, posicion, equipo, edad, altura, peso) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    valores = (id_asociado, nombre_completo, posicion, equipo, edad, altura, peso)
+    # Define la consulta SQL de inserción
+    sql = """
+        INSERT INTO estadisticas_jornadas (
+            id_player,
+            jornada,
+            timestamp,
+            puntuacion_fantasy,
+            puntuacion_as,
+            puntuacion_marca,
+            puntuacion_mundo_deportivo,
+            media_puntos_local,
+            media_puntos_visitante,
+            valor_mercado,
+            ultimo_rival,
+            resultado_del_partido,
+            proximo_rival,
+            proximo_partido_es_local,
+            pases_precisos,
+            centros_totales,
+            duelos_perdidos,
+            duelos_ganados,
+            pérdidas,
+            regates_totales,
+            regates_completados,
+            tiros_fuera,
+            tiros_a_puerta,
+            tiros_bloqueados_en_ataque,
+            despejes_totales,
+            faltas_recibidas,
+            faltas_cometidas,
+            fueras_de_juego,
+            minutos_jugados,
+            toques,
+            posesiones_perdidas,
+            goles_esperados,
+            pases_clave,
+            asistencias_esperadas
+        ) VALUES (
+                %s, %s, NOW(),  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            )
+    """
 
+    # Define los valores a insertar (reemplaza estos valores con los datos reales)
+    datos_jornada = (
+        id_jugador,
+        jornadaSC,
+        final_points,
+        as_points,
+        marca_points,
+        mundo_deportivo_points,
+        media_puntos_local,
+        media_puntos_visitante,
+        valorMercado,
+        ultimo_rival,
+        result,
+        proximo_rival,
+        local,
+        stadisticas_player.get("Pases precisos"),
+        stadisticas_player.get("Centros totales"),
+        stadisticas_player.get("Duelos perdidos"),
+        stadisticas_player.get("Duelos ganados"),
+        stadisticas_player.get("Pérdidas"),
+        stadisticas_player.get("Regates totales"),
+        stadisticas_player.get("Regates completados"),
+        stadisticas_player.get("Tiros fuera"),
+        stadisticas_player.get("Tiros a puerta"),
+        stadisticas_player.get("Tiros bloqueados en ataque"),
+        stadisticas_player.get("Despejes totales"),
+        stadisticas_player.get("Faltas recibidas"),
+        stadisticas_player.get("Faltas cometidas"),
+        stadisticas_player.get("Fueras de juego"),
+        stadisticas_player.get("Minutos jugados"),
+        stadisticas_player.get("Toques"),
+        stadisticas_player.get("Posesiones perdidas"),
+        goles_esperados,
+        stadisticas_player.get("Pases clave"),
+        asistencias_esperadas
+    )
     try:
-        cursor.execute(query, valores)
-        conexion.commit()
-        print("Datos insertados correctamente.")
-    except Exception as e:
-        print("Error al insertar datos:", e)
+        # Ejecutar la consulta INSERT con los valores proporcionados
+        cursor.execute(sql, datos_jornada)
 
+        # Confirmar la transacción
+        conexion.commit()
+
+        print("Datos insertados correctamente.")
+
+    except mysql.connector.Error as error:
+        print("Error al conectar con la base de datos:", error)
 
 def actualizar_version(version):
       for equipo, url in teams_data.items():
@@ -350,29 +413,25 @@ except:
     print("No se puedo conectar a la base de datos")
 
 # ONTENER IDS DE LOS EQUIPOS DE LA LIGA FANTASY EN LA BD 
-print("Obteniendo ids de los equipos en la base de datos:")
-# Consulta SQL para seleccionar id_equipo y nombre de la tabla equipos
-consulta = "SELECT id_equipo, nombre FROM equipos"
+print("Obteniendo ids de los jugadores en la base de datos:")
 
-# Ejecutar la consulta
+# Crear un cursor para ejecutar consultas SQL
+cursor = conexion.cursor()
+
+# Ejecutar la consulta para obtener los IDs y nombres de los jugadores
+consulta = "SELECT id_player, nombre FROM jugadores"
 cursor.execute(consulta)
 
-# Obtener los resultados
-resultados = cursor.fetchall()
+# Obtener los resultados y almacenarlos en un diccionario
+array_clave_valor = {}
+for (id_player, nombre) in cursor:
+    array_clave_valor[id_player] = nombre
 
-# Construir un array de pares clave-valor
-array_clave_valor = []
-for fila in resultados:
-    id_equipo, nombre = fila
-    array_clave_valor.append({"id": id_equipo, "nombre": nombre})
-
-# Imprimir el array resultado
+# Imprimir el diccionario resultante
 print(array_clave_valor)
 
 cursor.close() 
 
-#DEFINIR JORNADA A SCRAPEAR
-jornada_a_scrapear = "J29"   #IMPORTANTE que la variable mantenga la J para luego buscar la jornada deseada
 print(f"Jornada seleccionada: {jornada_a_scrapear}")
 
 driver = webdriver.Chrome()
@@ -481,6 +540,7 @@ index=0
 absolute=1
 jornada_absolute=""
 progress=0
+jugadores_error_scraping = []
 
 while True:
     # Encontrar todos los elementos li
@@ -494,9 +554,25 @@ while True:
         print(".......................................")
         print("Accediendo siguiente jugador x", index)
         print(".......................................")
+
         # Encontrar todos los elementos li
-        elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
-        elementos_li[index].click()
+        try:
+            time.sleep(1)
+            elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
+            elementos_li[index].click()
+
+        except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:     
+            time.sleep(0.5)
+            elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
+
+            #Almacenamos el nombre del jugador al que no se pudo acceder para scrapear sus datos asociados
+            nombre_jugador = elementos_li[index].find_element(By.CSS_SELECTOR, ".info .name").text
+            print(f"El jugador {nombre_jugador} no pudo ser scrapeado !!!!!!")
+            jugadores_error_scraping.append(nombre_jugador)
+
+            #Clickar en el siguiente elemento
+            index+=1
+            elementos_li[index].click()
 
         time.sleep(1)
             
@@ -570,6 +646,57 @@ while True:
     index=0
     pag+=1     
 
+print("Todos los jugadores scrapeados a excepción de:")
+for elemento in jugadores_error_scraping:
+    print(elemento)     
+
+#SEGUNDO INTENTO DE SCRAPING (UTILIZAR BUSCADOR DE JUGADORES) para jugadores que no pudieron ser accedidos y scrapeados 
+    
+driver.back()
+time.sleep(4)
+index=0
+
+#Preprocesamos los nombres de los jugadores eliminando el . que abrevia su nombre para que pueda buscarse en el buscados.
+for i in range(len(jugadores_error_scraping)):
+    jugadores_error_scraping[i] = jugadores_error_scraping[i].replace(".", "")
+
+try:
+    # Intentar encontrar y pulsar btn buscar
+    btn_buscar = driver.find_element(By.XPATH, '//*[@id="inner-content"]/div[1]/div[1]/button[1]')
+    btn_buscar.click()
+except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+    driver.refresh()
+    print("Anuncio detectado, reiniciando driver")
+    # Intentar encontrar y pulsar btn buscar
+    btn_buscar = driver.find_element(By.CSS_SELECTOR, "button.btn-search-more")
+    btn_buscar.click()
+
+
+# Itera sobre la lista de jugadores y entra cada uno en el input de búsqueda
+for jugador in jugadores_error_scraping:
+    print(f"BUscando a {jugador}")
+    # Encuentra el input dentro del div con la clase "sw-top-center"
+    input_busqueda = driver.find_element(By.CSS_SELECTOR, "div.sw-top-center input.search-players-input")
+    print("Cleaning input...")
+    input_busqueda.clear()  # Limpiar el campo de búsqueda
+    print("Putting input...")
+    input_busqueda.send_keys(jugador)  
+    time.sleep(6)  
+    # Presionar la tecla Enter  
+    input_busqueda.send_keys(Keys.ENTER)
+    time.sleep(6)  
+    
+    try:
+        print("Searching player")
+        elementos_lis = driver.find_element(By.CSS_SELECTOR, "div.player-row")
+        elementos_lis.click()
+        time.sleep(1)
+        extraer_info_jugador()
+        driver.back()
+        time.sleep(1)
+    except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e: 
+        print(f"El jugador {jugador} es inaccesible. pruebe insertándolo manualmente.")
+
+#Cerrar conexión a la bd y driver
 driver.quit()
-conexion.close()    
-print("Todos los jugadores scrapeados")
+conexion.close()

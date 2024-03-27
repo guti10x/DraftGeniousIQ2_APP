@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   PRIMARY KEY (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.equipos: ~18 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.equipos: ~17 rows (aproximadamente)
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
 INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
 	(1, 'Admin'),
@@ -49,38 +49,42 @@ INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
 
 -- Volcando estructura para tabla draftgeniousiq2.estadisticas_jornadas
 CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
-  `id_jornada` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_player` int(11) NOT NULL,
-  `puntuacion_fantasy` float DEFAULT NULL,
-  `puntuacion_as` float DEFAULT NULL,
-  `puntuacion_marca` float DEFAULT NULL,
-  `puntuacion_mundo_deportivo` float DEFAULT NULL,
-  `valor_mercado` float DEFAULT NULL,
-  `ultimo_rival` int(11) DEFAULT NULL,
-  `resultado_del_partido` char(50) DEFAULT NULL,
-  `proximo_rival` int(11) DEFAULT NULL,
-  `proximo_partido_es_local` char(50) DEFAULT NULL,
-  `Pases_totales` int(11) DEFAULT NULL,
-  `Pases_precisos` int(11) DEFAULT NULL,
-  `Balones_en_largo_totales` int(11) DEFAULT NULL,
-  `Balones_en_largo_precisos` int(11) DEFAULT NULL,
-  `Centros_totales` int(11) DEFAULT NULL,
-  `Duelos_perdidos` int(11) DEFAULT NULL,
-  `Duelos_ganados` int(11) DEFAULT NULL,
-  `Pérdidas` int(11) DEFAULT NULL,
-  `Regates_totales` int(11) DEFAULT NULL,
-  `Regates_completados` int(11) DEFAULT NULL,
-  `Tiros_a_puerta` int(11) DEFAULT NULL,
-  `Tiros_bloqueados_en_ataque` int(11) DEFAULT NULL,
-  `Entradas_totales` int(11) DEFAULT NULL,
-  `Faltas_recibidas` int(11) DEFAULT NULL,
-  `Faltas_cometidas` int(11) DEFAULT NULL,
-  `Minutos_jugados` int(11) DEFAULT NULL,
-  `Toques` int(11) DEFAULT NULL,
-  `Posesiones_perdidas` int(11) DEFAULT NULL,
-  `Goles_esperados` float DEFAULT NULL,
-  `match_stat_expectedAssists` float DEFAULT NULL,
-  PRIMARY KEY (`id_jornada`) USING BTREE,
+  `jornada` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL,
+  `puntuacion_fantasy` int(11) DEFAULT NULL,
+  `puntuacion_as` int(11) DEFAULT NULL,
+  `puntuacion_marca` int(11) DEFAULT NULL,
+  `puntuacion_mundo_deportivo` int(11) DEFAULT NULL,
+  `media_puntos_visitante` float DEFAULT NULL,
+  `media_puntos_local` float DEFAULT NULL,
+  `valor_mercado` int(11) DEFAULT NULL,
+  `ultimo_rival` text DEFAULT NULL,
+  `resultado_del_partido` text DEFAULT NULL,
+  `proximo_rival` text DEFAULT NULL,
+  `proximo_partido_es_local` text DEFAULT NULL,
+  `pases_precisos` int(11) DEFAULT NULL,
+  `centros_totales` int(11) DEFAULT NULL,
+  `duelos_perdidos` int(11) DEFAULT NULL,
+  `duelos_ganados` int(11) DEFAULT NULL,
+  `pérdidas` int(11) DEFAULT NULL,
+  `regates_totales` int(11) DEFAULT NULL,
+  `regates_completados` int(11) DEFAULT NULL,
+  `tiros_fuera` int(11) DEFAULT NULL,
+  `tiros_a_puerta` int(11) DEFAULT NULL,
+  `tiros_bloqueados_en_ataque` int(11) DEFAULT NULL,
+  `despejes_totales` int(11) DEFAULT NULL,
+  `faltas_recibidas` int(11) DEFAULT NULL,
+  `faltas_cometidas` int(11) DEFAULT NULL,
+  `fueras_de_juego` int(11) DEFAULT NULL,
+  `minutos_jugados` int(11) DEFAULT NULL,
+  `toques` int(11) DEFAULT NULL,
+  `posesiones_perdidas` int(11) DEFAULT NULL,
+  `goles_esperados` float DEFAULT NULL,
+  `pases_clave` int(11) DEFAULT NULL,
+  `asistencias_esperadas` float DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
   KEY `id_player` (`id_player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -101,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `estadísticas_equipos` (
   KEY `id_equipo` (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~14 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadísticas_equipos` DISABLE KEYS */;
 INSERT INTO `estadísticas_equipos` (`id`, `id_equipo`, `timestamp`, `puntos`, `media_puntos_jornada`, `valor`, `num_jugadores`) VALUES
 	(10, 1, '2024-03-25 10:52:49', 1044, 49.7, 317.9, 25),
@@ -133,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
   `peso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_player`) USING BTREE,
   KEY `id_eqipo` (`id_eqipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=529 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla draftgeniousiq2.jugadores: ~528 rows (aproximadamente)
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
