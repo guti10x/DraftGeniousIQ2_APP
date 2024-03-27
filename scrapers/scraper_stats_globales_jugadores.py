@@ -36,7 +36,7 @@ def obtener_valor_por_etiqueta(label_deseado):
     valor = elemento.text
     return valor
 
-def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
+def extraer_info_jugador():
 
     stadisticas_player = {}
 
@@ -317,6 +317,7 @@ index=0
 absolute=1
 jornada_absolute=""
 progress=0
+jugaodres_error_scraping = []
 
 while True:
     # Encontrar todos los elementos li
@@ -332,8 +333,22 @@ while True:
         print(".......................................")
 
         # Encontrar todos los elementos li
-        elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
-        elementos_li[index].click()
+        try:
+            time.sleep(1)
+            elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
+            elementos_li[index].click()
+
+        except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:     
+            time.sleep(0.5)
+            elementos_li = driver.find_elements(By.CSS_SELECTOR, "div.player-row")
+
+            #Almacenamos el nombre del jugador al que no se pudo acceder para scrapear sus datos asociados
+            nombre_jugador = elementos_li[index].find_element(By.CSS_SELECTOR, ".info .name").text
+            print(f"El jugador {nombre_jugador} no pudo ser scrapeado !!!!!!")
+            jugaodres_error_scraping.append(nombre_jugador)
+
+            #Clickar en el siguiente elemento
+            elementos_li[index+1].click()
 
         time.sleep(1)
             
@@ -368,7 +383,7 @@ while True:
                     break   
         absolute = 2
         
-        extraer_info_jugador(jornada_absolute,jornada_a_scrapear)
+        extraer_info_jugador()
             
         #Retroceder página
         driver.back()
@@ -407,6 +422,10 @@ while True:
     index=0
     pag+=1     
 
+#Cerrar conexión a la bd y driver
 driver.quit()
-conexion.close()    
-print("Todos los jugadores scrapeados")
+conexion.close()   
+
+print("Todos los jugadores scrapeados a excepción de:")
+for elemento in jugaodres_error_scraping:
+    print(elemento)
