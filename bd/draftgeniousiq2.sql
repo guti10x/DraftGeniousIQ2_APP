@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   PRIMARY KEY (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.equipos: ~17 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.equipos: ~18 rows (aproximadamente)
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
 INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
 	(1, 'Admin'),
@@ -64,26 +64,55 @@ CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
   `resultado_del_partido` text DEFAULT NULL,
   `proximo_rival` text DEFAULT NULL,
   `proximo_partido_es_local` text DEFAULT NULL,
-  `pases_precisos` int(11) DEFAULT NULL,
+  `balones_en_largo_totales` int(11) DEFAULT NULL,
+  `ocasiones_claras_falladas` int(11) DEFAULT NULL,
+  `tiros_bloqueados_en_defensa` int(11) DEFAULT NULL,
+  `entradas_como_último_hombre` int(11) DEFAULT NULL,
+  `goles_evitados` float DEFAULT NULL,
+  `salidas_precisas` int(11) DEFAULT NULL,
+  `minutos_jugados` int(11) DEFAULT NULL,
+  `goles_esperados` float DEFAULT NULL,
+  `balones_en_largo_precisos` int(11) DEFAULT NULL,
+  `intercepciones` int(11) DEFAULT NULL,
+  `tiros_fuera` int(11) DEFAULT NULL,
+  `tiros_bloqueados_en_ataque` int(11) DEFAULT NULL,
+  `posesiones_perdidas` int(11) DEFAULT NULL,
+  `paradas_desde_dentro_del_área` int(11) DEFAULT NULL,
   `centros_totales` int(11) DEFAULT NULL,
-  `duelos_perdidos` int(11) DEFAULT NULL,
+  `entradas_totales` int(11) DEFAULT NULL,
+  `despejes_por_alto` int(11) DEFAULT NULL,
+  `duelos_aéreos_perdidos` int(11) DEFAULT NULL,
   `duelos_ganados` int(11) DEFAULT NULL,
+  `pases_totales` int(11) DEFAULT NULL,
+  `penaltis_cometidos` int(11) DEFAULT NULL,
+  `asistencias_esperadas` float DEFAULT NULL,
   `pérdidas` int(11) DEFAULT NULL,
   `regates_totales` int(11) DEFAULT NULL,
+  `penaltis_provocados` int(11) DEFAULT NULL,
+  `despejes_con_los_puños` int(11) DEFAULT NULL,
+  `goles` int(11) DEFAULT NULL,
+  `asistencias_de_gol` int(11) DEFAULT NULL,
+  `tiros_al_palo` int(11) DEFAULT NULL,
   `regates_completados` int(11) DEFAULT NULL,
-  `tiros_fuera` int(11) DEFAULT NULL,
-  `tiros_a_puerta` int(11) DEFAULT NULL,
-  `tiros_bloqueados_en_ataque` int(11) DEFAULT NULL,
-  `despejes_totales` int(11) DEFAULT NULL,
-  `faltas_recibidas` int(11) DEFAULT NULL,
-  `faltas_cometidas` int(11) DEFAULT NULL,
-  `fueras_de_juego` int(11) DEFAULT NULL,
-  `minutos_jugados` int(11) DEFAULT NULL,
-  `toques` int(11) DEFAULT NULL,
-  `posesiones_perdidas` int(11) DEFAULT NULL,
-  `goles_esperados` float DEFAULT NULL,
+  `ocasiones_creadas` int(11) DEFAULT NULL,
+  `penaltis_fallados` int(11) DEFAULT NULL,
   `pases_clave` int(11) DEFAULT NULL,
-  `asistencias_esperadas` float DEFAULT NULL,
+  `tiros_a_puerta` int(11) DEFAULT NULL,
+  `fueras_de_juego` int(11) DEFAULT NULL,
+  `centros_precisos` int(11) DEFAULT NULL,
+  `errores_que_llevan_a_disparo` int(11) DEFAULT NULL,
+  `despejes_totales` int(11) DEFAULT NULL,
+  `duelos_aéreos_ganados` int(11) DEFAULT NULL,
+  `paradas` int(11) DEFAULT NULL,
+  `pases_precisos` int(11) DEFAULT NULL,
+  `toques` int(11) DEFAULT NULL,
+  `duelos_perdidos` int(11) DEFAULT NULL,
+  `faltas_recibidas` int(11) DEFAULT NULL,
+  `errores_que_llevan_a_gol` int(11) DEFAULT NULL,
+  `salidas_totales` int(11) DEFAULT NULL,
+  `penaltis_parados` int(11) DEFAULT NULL,
+  `regateado` int(11) DEFAULT NULL,
+  `faltas_cometidas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id_player` (`id_player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -105,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `estadísticas_equipos` (
   KEY `id_equipo` (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~15 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadísticas_equipos` DISABLE KEYS */;
 INSERT INTO `estadísticas_equipos` (`id`, `id_equipo`, `timestamp`, `puntos`, `media_puntos_jornada`, `valor`, `num_jugadores`) VALUES
 	(10, 1, '2024-03-25 10:52:49', 1044, 49.7, 317.9, 25),

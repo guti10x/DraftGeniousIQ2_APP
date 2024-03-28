@@ -251,8 +251,9 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     print(f"Media fuera: {media_puntos_visitante}")
     for clave, valor in stadisticas_player.items():
         print(f"{clave}: {valor}")
+        array_estadisticas_bd.add(clave)
+
     print("_____________________________________________")
-    
 
     #Obtener Fk del equipo al que pertenecen las estadísticas con el nombre
     nombre_completo= nombre.text + " " + apellido.text
@@ -276,6 +277,11 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
     goles_esperados = stadisticas_player.get("Goles esperados")
     if goles_esperados is not None:
         goles_esperados = goles_esperados.replace(",", ".")
+    
+     # Verificar si goles_esperados es None antes de intentar reemplazar comas
+    goles_evitados = stadisticas_player.get("goles evitados")
+    if goles_evitados is not None:
+        goles_evitados = goles_evitados.replace(",", ".")
 
     # Verificar si asistencias_esperadas es None antes de intentar reemplazar comas
     asistencias_esperadas = stadisticas_player.get("MATCH_STAT_expectedAssists")
@@ -284,7 +290,6 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
 
 
     # REALIZAR INSERT DE DATOS DE ESTADÍSTICAS INDIVIDUALES DE CADA JUGADOR A LA BD
-
     # Crea un cursor para ejecutar consultas SQL
     cursor = conexion.cursor()
 
@@ -305,28 +310,64 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
             resultado_del_partido,
             proximo_rival,
             proximo_partido_es_local,
-            pases_precisos,
+            balones_en_largo_totales,
+            tiros_bloqueados_en_defensa,
+            ocasiones_claras_falladas,
+            entradas_como_último_hombre,
+            goles_evitados,
+            salidas_precisas,
+            minutos_jugados,
+            goles_esperados,
+            balones_en_largo_precisos,
+            intercepciones,
+            tiros_fuera,
+            tiros_bloqueados_en_ataque,
+            posesiones_perdidas,
+            paradas_desde_dentro_del_área,
             centros_totales,
-            duelos_perdidos,
+            entradas_totales,
+            despejes_por_alto,
+            duelos_aéreos_perdidos,
             duelos_ganados,
+            pases_totales,
+            penaltis_cometidos,
+            asistencias_esperadas,
             pérdidas,
             regates_totales,
+            penaltis_provocados,
+            despejes_con_los_puños,
+            goles,
+            asistencias_de_gol,
+            tiros_al_palo,
             regates_completados,
-            tiros_fuera,
-            tiros_a_puerta,
-            tiros_bloqueados_en_ataque,
-            despejes_totales,
-            faltas_recibidas,
-            faltas_cometidas,
-            fueras_de_juego,
-            minutos_jugados,
-            toques,
-            posesiones_perdidas,
-            goles_esperados,
+            ocasiones_creadas,
+            penaltis_fallados,
             pases_clave,
-            asistencias_esperadas
+            tiros_a_puerta,
+            fueras_de_juego,
+            centros_precisos,
+            errores_que_llevan_a_disparo,
+            despejes_totales,
+            duelos_aéreos_ganados,
+            paradas,
+            pases_precisos,
+            toques,
+            duelos_perdidos,
+            faltas_recibidas,
+            errores_que_llevan_a_gol,
+            salidas_totales,
+            penaltis_parados,
+            regateado,
+            faltas_cometidas
+
         ) VALUES (
-                %s, %s, NOW(),  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                %s, %s, NOW(), %s, %s, %s, %s, %s, %s, %s,
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                %s, %s, %s
             )
     """
 
@@ -345,27 +386,57 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
         result,
         proximo_rival,
         local,
-        stadisticas_player.get("Pases precisos"),
+        stadisticas_player.get("Balones en largo totales"),
+        stadisticas_player.get("Tiros bloqueados en defensa"),
+        stadisticas_player.get("Ocasiones claras falladas"),
+        stadisticas_player.get("Entradas como último hombre"),
+        goles_evitados,
+        stadisticas_player.get("Salidas precisas"),
+        stadisticas_player.get("Minutos jugados"),
+        goles_esperados,
+        stadisticas_player.get("Balones en largo precisos"),
+        stadisticas_player.get("Intercepciones"),
+        stadisticas_player.get("Tiros fuera"),
+        stadisticas_player.get("Tiros bloqueados en ataque"),
+        stadisticas_player.get("Posesiones perdidas"),
+        stadisticas_player.get("Paradas desde dentro del área"),
         stadisticas_player.get("Centros totales"),
-        stadisticas_player.get("Duelos perdidos"),
+        stadisticas_player.get("Entradas totales"),
+        stadisticas_player.get("Despejes por alto"),
+        stadisticas_player.get("Duelos aéreos perdidos"),
         stadisticas_player.get("Duelos ganados"),
+        stadisticas_player.get("Pases totales"),
+        stadisticas_player.get("Penaltis cometidos"),
+        asistencias_esperadas,
         stadisticas_player.get("Pérdidas"),
         stadisticas_player.get("Regates totales"),
+        stadisticas_player.get("Penaltis provocados"),
+        stadisticas_player.get("Despejes con los puños"),
+        stadisticas_player.get("Goles"),
+        stadisticas_player.get("Asistencias de gol"),
+        stadisticas_player.get("Tiros al palo"),
         stadisticas_player.get("Regates completados"),
-        stadisticas_player.get("Tiros fuera"),
-        stadisticas_player.get("Tiros a puerta"),
-        stadisticas_player.get("Tiros bloqueados en ataque"),
-        stadisticas_player.get("Despejes totales"),
-        stadisticas_player.get("Faltas recibidas"),
-        stadisticas_player.get("Faltas cometidas"),
-        stadisticas_player.get("Fueras de juego"),
-        stadisticas_player.get("Minutos jugados"),
-        stadisticas_player.get("Toques"),
-        stadisticas_player.get("Posesiones perdidas"),
-        goles_esperados,
+        stadisticas_player.get("Ocasiones creadas"),
+        stadisticas_player.get("Penaltis fallados"),
         stadisticas_player.get("Pases clave"),
-        asistencias_esperadas
+        stadisticas_player.get("Tiros a puerta"),
+        stadisticas_player.get("Fueras de juego"),
+        stadisticas_player.get("Centros precisos"),
+        stadisticas_player.get("Errores que llevan a disparo"),
+        stadisticas_player.get("Despejes totales"),
+        stadisticas_player.get("Duelos aéreos ganados"),
+        stadisticas_player.get("Paradas"),
+        stadisticas_player.get("Pases precisos"),
+        stadisticas_player.get("Toques"),
+        stadisticas_player.get("Duelos perdidos"),
+        stadisticas_player.get("Faltas recibidas"),
+        stadisticas_player.get("Errores que llevan a gol"),
+        stadisticas_player.get("Salidas totales"),
+        stadisticas_player.get("Penaltis parados"),
+        stadisticas_player.get("Regateado"),
+        stadisticas_player.get("Faltas cometidas")
     )
+
     try:
         # Ejecutar la consulta INSERT con los valores proporcionados
         cursor.execute(sql, datos_jornada)
@@ -377,7 +448,7 @@ def extraer_info_jugador(jornada_absolute,jornada_a_scrapear):
 
     except mysql.connector.Error as error:
         print("Error al conectar con la base de datos:", error)
-
+    
 def actualizar_version(version):
       for equipo, url in teams_data.items():
         # Dividir la URL en base al signo de interrogación
@@ -541,6 +612,8 @@ absolute=1
 jornada_absolute=""
 progress=0
 jugadores_error_scraping = []
+array_estadisticas_bd= []
+array_estadisticas_bd = set()
 
 while True:
     # Encontrar todos los elementos li
@@ -696,6 +769,13 @@ for jugador in jugadores_error_scraping:
         time.sleep(1)
     except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e: 
         print(f"El jugador {jugador} es inaccesible. pruebe insertándolo manualmente.")
+
+
+print("Resumen de todas las estadísticas encontradas de todos los jugadores:")
+print(array_estadisticas_bd)
+
+print("Scraping finalizado")
+print(array_estadisticas_bd)
 
 #Cerrar conexión a la bd y driver
 driver.quit()
