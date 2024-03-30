@@ -17,35 +17,97 @@
 CREATE DATABASE IF NOT EXISTS `draftgeniousiq2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `draftgeniousiq2`;
 
+-- Volcando estructura para tabla draftgeniousiq2.cache
+CREATE TABLE IF NOT EXISTS `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.cache: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `cache` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.cache_locks
+CREATE TABLE IF NOT EXISTS `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.cache_locks: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `cache_locks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cache_locks` ENABLE KEYS */;
+
 -- Volcando estructura para tabla draftgeniousiq2.equipos
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id_equipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` text NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_equipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.equipos: ~18 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.equipos: ~19 rows (aproximadamente)
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
-INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
-	(1, 'Admin'),
-	(2, 'M31-G6-AcMilanesa'),
-	(3, 'M31-G7-DraftKings'),
-	(4, 'M32-G5-BabooManager'),
-	(5, 'M31-G3-CactusPanda'),
-	(6, 'M32-G3-GoalAnalitics'),
-	(7, 'M31-G1-FutX'),
-	(8, 'jluzon'),
-	(9, 'M31-G2-UA2CCC'),
-	(10, 'M32-G9-PREDITECH INSIGHTS'),
-	(11, 'M32-G7-KleinGroup'),
-	(12, 'M32-G8 - Los Capys'),
-	(13, 'M32-G2-dreamx1'),
-	(14, 'M31-G4-DLA'),
-	(15, 'M32-G6_Jammin&#039'),
-	(16, 'M32-G2-xGarcii'),
-	(17, 'M31-G5-REALE'),
-	(18, 'Jafeth Suarez');
+INSERT INTO `equipos` (`id_equipo`, `nombre`, `updated_at`, `created_at`) VALUES
+	(1, 'Admin', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(2, 'M31-G6-AcMilanesa', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(3, 'M31-G7-DraftKings', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(4, 'M32-G5-BabooManager', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(5, 'M31-G3-CactusPanda', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(6, 'M32-G3-GoalAnalitics', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(7, 'M31-G1-FutX', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(8, 'jluzon', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(9, 'M31-G2-UA2CCC', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(10, 'M32-G9-PREDITECH INSIGHTS', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(11, 'M32-G7-KleinGroup', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(12, 'M32-G8 - Los Capys', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(13, 'M32-G2-dreamx1', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(14, 'M31-G4-DLA', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(15, 'M32-G6_Jammin&#039', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(16, 'M32-G2-xGarcii', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(17, 'M31-G5-REALE', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(18, 'Jafeth Suarez', '2024-03-30 10:47:31', '2024-03-30 10:46:30'),
+	(25, 'AlbertoFC', '2024-03-30 10:47:31', '2024-03-30 10:46:30');
 /*!40000 ALTER TABLE `equipos` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.estadisticas_equipos
+CREATE TABLE IF NOT EXISTS `estadisticas_equipos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_equipo` int(11) DEFAULT NULL,
+  `puntos` int(11) DEFAULT NULL,
+  `media_puntos_jornada` float DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `num_jugadores` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `id_equipo` (`id_equipo`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.estadisticas_equipos: ~16 rows (aproximadamente)
+/*!40000 ALTER TABLE `estadisticas_equipos` DISABLE KEYS */;
+INSERT INTO `estadisticas_equipos` (`id`, `id_equipo`, `puntos`, `media_puntos_jornada`, `valor`, `num_jugadores`, `created_at`, `updated_at`) VALUES
+	(10, 1, 1044, 49.7, 317.9, 25, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(11, 2, 1011, 48.1, 206.3, 18, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(12, 3, 989, 47.1, 180.6, 21, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(13, 4, 841, 40, 124.5, 16, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(14, 5, 797, 38, 100.6, 13, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(15, 6, 790, 37.6, 110.4, 19, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(16, 7, 781, 37.2, 78.9, 12, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(17, 8, 737, 35.1, 85.9, 14, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(18, 9, 705, 33.6, 249.9, 25, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(19, 10, 700, 33.3, 78.5, 11, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(20, 12, 565, 29.7, 40.3, 15, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(21, 14, 515, 24.5, 48.7, 16, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(22, 16, 475, 29.7, 30.9, 15, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(23, 17, 389, 19.5, 50.5, 15, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(24, 18, 215, 26.9, 43.3, 15, '2024-03-30 10:30:33', '2024-03-30 10:30:33'),
+	(27, 9, 9, 9, 9, 9, '2024-03-30 10:30:33', '2024-03-30 10:30:33');
+/*!40000 ALTER TABLE `estadisticas_equipos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.estadisticas_jornadas
 CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
@@ -115,44 +177,64 @@ CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
   `faltas_cometidas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla draftgeniousiq2.estadisticas_jornadas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadisticas_jornadas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `estadisticas_jornadas` ENABLE KEYS */;
 
--- Volcando estructura para tabla draftgeniousiq2.estadísticas_equipos
-CREATE TABLE IF NOT EXISTS `estadísticas_equipos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_equipo` int(11) NOT NULL,
-  `timestamp` timestamp NULL DEFAULT NULL,
-  `puntos` int(11) DEFAULT NULL,
-  `media_puntos_jornada` float DEFAULT NULL,
-  `valor` float DEFAULT NULL,
-  `num_jugadores` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `id_equipo` (`id_equipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Volcando estructura para tabla draftgeniousiq2.failed_jobs
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadísticas_equipos: ~15 rows (aproximadamente)
-/*!40000 ALTER TABLE `estadísticas_equipos` DISABLE KEYS */;
-INSERT INTO `estadísticas_equipos` (`id`, `id_equipo`, `timestamp`, `puntos`, `media_puntos_jornada`, `valor`, `num_jugadores`) VALUES
-	(10, 1, '2024-03-25 10:52:49', 1044, 49.7, 317.9, 25),
-	(11, 2, '2024-03-25 10:54:39', 1011, 48.1, 206.3, 18),
-	(12, 3, '2024-03-25 10:56:00', 989, 47.1, 180.6, 21),
-	(13, 4, '2024-03-25 10:57:32', 841, 40, 124.5, 16),
-	(14, 5, '2024-03-25 10:58:44', 797, 38, 100.6, 13),
-	(15, 6, '2024-03-25 10:59:43', 790, 37.6, 110.4, 19),
-	(16, 7, '2024-03-25 11:01:08', 781, 37.2, 78.9, 12),
-	(17, 8, '2024-03-25 11:02:03', 737, 35.1, 85.9, 14),
-	(18, 9, '2024-03-25 11:03:07', 705, 33.6, 249.9, 25),
-	(19, 10, '2024-03-25 11:04:56', 700, 33.3, 78.5, 11),
-	(20, 12, '2024-03-25 11:07:04', 565, 29.7, 40.3, 15),
-	(21, 14, '2024-03-25 11:09:19', 515, 24.5, 48.7, 16),
-	(22, 16, '2024-03-25 11:11:39', 475, 29.7, 30.9, 15),
-	(23, 17, '2024-03-25 11:12:46', 389, 19.5, 50.5, 15),
-	(24, 18, '2024-03-25 11:13:54', 215, 26.9, 43.3, 15);
-/*!40000 ALTER TABLE `estadísticas_equipos` ENABLE KEYS */;
+-- Volcando datos para la tabla draftgeniousiq2.failed_jobs: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.jobs
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) unsigned NOT NULL,
+  `reserved_at` int(10) unsigned DEFAULT NULL,
+  `available_at` int(10) unsigned NOT NULL,
+  `created_at` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_queue_index` (`queue`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.jobs: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.job_batches
+CREATE TABLE IF NOT EXISTS `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.job_batches: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `job_batches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `job_batches` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.jugadores
 CREATE TABLE IF NOT EXISTS `jugadores` (
@@ -701,6 +783,23 @@ INSERT INTO `jugadores` (`id_player`, `id_eqipo`, `nombre`, `posicion`, `equipo`
 	(528, NULL, 'Aarón Escandell', 'PT', 'Las Palmas', 28, 1.88, 73);
 /*!40000 ALTER TABLE `jugadores` ENABLE KEYS */;
 
+-- Volcando estructura para tabla draftgeniousiq2.migrations
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.migrations: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+	(1, '0001_01_01_000000_create_users_table', 1),
+	(2, '0001_01_01_000001_create_cache_table', 1),
+	(3, '0001_01_01_000002_create_jobs_table', 1),
+	(4, '2024_03_28_202802_create_personal_access_tokens_table', 1);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+
 -- Volcando estructura para tabla draftgeniousiq2.notificaciones
 CREATE TABLE IF NOT EXISTS `notificaciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -715,6 +814,39 @@ CREATE TABLE IF NOT EXISTS `notificaciones` (
 -- Volcando datos para la tabla draftgeniousiq2.notificaciones: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.password_reset_tokens
+CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.password_reset_tokens: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `password_reset_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_reset_tokens` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.personal_access_tokens
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.personal_access_tokens: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.predicciones_puntos
 CREATE TABLE IF NOT EXISTS `predicciones_puntos` (
@@ -742,21 +874,47 @@ CREATE TABLE IF NOT EXISTS `predicciones_valor_mercado` (
 /*!40000 ALTER TABLE `predicciones_valor_mercado` DISABLE KEYS */;
 /*!40000 ALTER TABLE `predicciones_valor_mercado` ENABLE KEYS */;
 
--- Volcando estructura para tabla draftgeniousiq2.usuarios
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_team` int(11) NOT NULL,
-  `username` text DEFAULT NULL,
-  `email` text DEFAULT NULL,
-  `esAdmin` int(11) DEFAULT NULL,
-  `Equipo` text DEFAULT NULL,
-  PRIMARY KEY (`id_usuario`) USING BTREE,
-  KEY `id_team` (`id_team`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Volcando estructura para tabla draftgeniousiq2.sessions
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sessions_user_id_index` (`user_id`),
+  KEY `sessions_last_activity_index` (`last_activity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.usuarios: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+-- Volcando datos para la tabla draftgeniousiq2.sessions: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+	('bVXTT3LH3orZTPOpjQ2WkS5FBxe3eAwkaKRM3K1i', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiakdqb3Q2a3FFVEY4NjVZeHlpa1RmVmNZWkRCWEdHU3JBWHJlazMxMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1711662393),
+	('njh1Thz6hgqw3rHve2vfyNLpWoQygaGhRHVunlw2', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYUUyVmdzNFlTNmFQU1VrZTE4SXUyc3JOV1R2UzU2QUZKdGQ2c3Q3UCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1711788859),
+	('t6umVWgBy3FIioMkIo1JSHozhmEBJJIazesCMhjk', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVHFLUUZpWnhUMWJScjZLMkFKTTZtY2NaV0FPTllBb0t0cFFSUWpXNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1711704069);
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id_team` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL,
+  `rol` timestamp NULL DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`),
+  KEY `id_team` (`id_team`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.users: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
