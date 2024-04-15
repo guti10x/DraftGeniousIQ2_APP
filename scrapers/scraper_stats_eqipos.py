@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException
 import time
 import mysql.connector
+from bs4 import BeautifulSoup
 
 print("Starting scraper...")
 
@@ -184,19 +185,36 @@ while True:
 
             # JUGADORES TITULARES DEL EQUIPO
             titulares = []
-            # Encontrar todos los elementos <a> con la clase "btn btn-player-gw lineup-player"
-            elementos_a = driver.find_elements(By.CSS_SELECTOR, "a.btn.btn-player-gw.lineup-player")
-            print("Número de jugadores titulares del equipo: ", len(elementos_a))
-
-            # Iterar sobre los elementos <a> encontrados
-            for elemento_a in elementos_a:
-                # Encontrar el elemento <div class="name"> dentro de cada elemento <a>
-                elemento_name = elemento_a.find_element(By.CSS_SELECTOR, "div.name")
-                # Imprimir el texto del elemento <div class="name">
-                texto = elemento_name.text
-                titulares.append(texto)
-                print(texto)
             
+            # Obtiene el HTML de la página
+            html = driver.page_source
+
+            # Analiza el HTML con Beautiful Soup
+            soup = BeautifulSoup(html, 'html.parser')
+
+            # Encuentra el div con la clase "lineup-starting"
+            lineup_div = soup.find('div', class_='lineup-starting')
+
+            if lineup_div:
+                # Encuentra todos los elementos <a> dentro del div
+                player_links = lineup_div.find_all('a', class_='lineup-player')
+
+                # Itera sobre cada elemento <a>
+                for link in player_links:
+                    # Encuentra el div con la clase "name" dentro del elemento <a>
+                    player_name_div = link.find('div', class_='name')
+                    
+                    # Verifica si se encontró el div del nombre
+                    if player_name_div:
+                        # Extrae el nombre del jugador
+                        player_name = player_name_div.text.strip()
+                        print(player_name)
+                        titulares.append(player_name)
+
+            print("Total de TITULARES:",len(titulares))
+            print(titulares)
+            
+
             # JUGADORES TODOS LOS JUGADoRES
             jugadores_equipo = []
             #Cambiar a la subventana equipo
@@ -222,16 +240,10 @@ while True:
                 player_rows = driver.find_elements(By.XPATH,'//div[@class="player-row"]')
                 driver.execute_script("arguments[0].scrollIntoView(true);", player_rows[index])  
             
-            # Creamos un diccionario con los nombres abreviados como claves y los nombres completos como valores
-            diccionario_nombres = dict(zip(titulares, jugadores_equipo))
-
-            # Sustituimos los nombres abreviados por los nombres completos
-            for i in range(len(titulares)):
-                titulares[i] = diccionario_nombres.get(titulares[i], titulares[i])
-
-            # Imprimimos los nombres actualizados
-            print(titulares)
-
+            #Actualizar array de jugadores titulares con nombres completos de cada jugaodr para poder buscar por nombre en la tabla jugadores y asignar atributo titular a 1
+            mapa_nombres = {jugador.split()[0][0] + '. ' + jugador.split()[-1]: jugador for jugador in jugadores_equipo}
+            titulares_actualizados = [mapa_nombres.get(nombre, nombre) for nombre in titulares]
+            print(titulares_actualizados)
 
             #Obtener Fk del equipo al que pertenecen las estadísticas con el nombre
             # Buscar el ID asociado al nombre
@@ -243,11 +255,43 @@ while True:
             
             if id_asociado is not None:
                 print(f"El ID de '{nombreEquipo}' es: {id_asociado}")
-            else:
+            else:   
                 print(f"No se encontró ningún ID asociado al nombre '{nombreEquipo}'")
 
+            ###ACTUALIZAR EN LA BD LOS JUGADORES  TITULARES / NO TITULARES  DE LA PLANTILLA DEL USER
+
+            ## 1-Inicializamos todos los jugadores en plantilla del equipo a 0(no titulares)
+            
             # Crear un cursor para ejecutar consultas SQL
             cursor = conexion.cursor()
+            # Consulta SQL para actualizar el atributo titular a 0 para los jugadores del equipo asociado
+            consulta = f"UPDATE jugadores SET titular = NULL WHERE id_equipo = {id_asociado};"
+
+            try:
+                # Ejecutar la consulta
+                cursor.execute(consulta)
+
+                # Confirmar la transacción
+                conexion.commit()
+                print("Se han actualizado los jugadores de ",nombreEquipo, " a suplentes(0) correctamente.")
+            except mysql.connector.Error as error:
+                print(f"No se ha podido ejecutar la consulta: {error}")
+
+            ## 2 Inicializamos todos los jugadores TITULARES de la plantilla del equipo a 1(titulares)
+
+            for titular in titulares_actualizados:
+                # Consulta SQL para actualizar el atributo titular a 1 del jugador 
+                consulta = f"UPDATE jugadores SET titular = 1 WHERE nombre = '{titular}';"
+
+                try:
+                    # Ejecutar la consulta
+                    cursor.execute(consulta)
+
+                    # Confirmar la transacción
+                    conexion.commit()
+                    print("Se ha actualizado a ",titular," como tiular(1) correctamente.")
+                except mysql.connector.Error as error:
+                    print(f"No se ha podido ejecutar la consulta: {error}")
 
             #El dinero del resto de usuarios no es accesible, por lo que lo inicializamos a 0
             if id_asociado !=2:
