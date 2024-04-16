@@ -1,3 +1,18 @@
+# SCRAPER DE LOS DATOS* DE LOS JUGADoRES DE LA LIGA MISTER FANTASY
+#  *datos no cambiantes cada jornada
+#
+#  -By: Daniel Gutiérrez Torres (https://github.com/guti10x)
+#
+#  -Esquema de funcionamiento:
+#
+#    1- Nos logueamos en la web de MF
+#    
+#    2- Accedemos al subapartado "Más" donde se encuentra el btn "Jugadores" el cual pulsaremos para acceder al listado de TODOS los jugadores disponibles en la web de MF.
+#    
+#    3- Iteramos y accedemos a cada uno de los jugadores de la lista extrayendo datos y estadísticas como: nombre, posición, equipo, edad, altura y peso
+#    
+#    4- Además inicializa datos como id_jugador asociado, fecha de creación y actualización.
+
 # Dependencias
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -159,7 +174,8 @@ def extraer_info_jugador():
         print(f"No se encontró ningún ID asociado al nombre '{owner}'")
 
     #Preprocesar datos antes de insertar los datos en la bd
-    nombre_completo= nombre.text + " " + apellido.text
+    nombre_completo = (nombre.text + " " + apellido.text).strip()
+
     if altura is not None:
         altura=altura.replace(',', '.')
         altura=altura.replace('m', '')
@@ -169,7 +185,7 @@ def extraer_info_jugador():
     # Insertar datos en la tabla
     cursor = conexion.cursor()
 
-    query = "INSERT INTO jugadores (id_eqipo, nombre, posicion, equipo, edad, altura, peso) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    query = "INSERT INTO jugadores (id_equipo, nombre, posicion, equipo, edad, altura, peso, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s,NOW(), NOW())"
     valores = (id_asociado, nombre_completo, posicion, equipo, edad, altura, peso)
 
     try:

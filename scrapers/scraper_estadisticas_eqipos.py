@@ -1,9 +1,16 @@
 # SCRAPER DE ESTADÍSTICAS DE LOS EQUIPO PARTICIPANTES EN LA LIGA MISTER FANTASY
-#   1-Nos logueamos en la web de MF
-#   2-Accedemos al subapartado Tabla donde se encuentra la clasificación de todos los equipos
-#   3-Accedemos a cada uno de los equipos y accedemos a las diferentes estadísticas de: puntos totales obtenidos, dinero total disponible,
-#     media_puntos_jornada, valor de la plantilla, numero de jugadores en plantilla, jugadores en plantilla y jugadores titulares.
-#   4-Además inicializa datos como id_equipo asociado, fecha de creación y actualización.
+#
+#  -By: Daniel Gutiérrez Torres (https://github.com/guti10x)
+#
+#  -Esquema de funcionamiento:
+#     1- Nos logueamos en la web de MF
+#     
+#     2- Accedemos al subapartado Tabla donde se encuentra la clasificación de todos los equipos
+#     
+#     3- Accedemos a cada uno de los equipos y accedemos a las diferentes estadísticas de: puntos totales obtenidos, dinero total disponible,
+#       media_puntos_jornada, valor de la plantilla, numero de jugadores en plantilla, jugadores en plantilla y jugadores titulares.
+#     
+#     4- Además inicializa datos como id_equipo asociado, fecha de creación y actualización.
 
 # Dependencias
 from selenium import webdriver

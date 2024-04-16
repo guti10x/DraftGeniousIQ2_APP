@@ -1,3 +1,23 @@
+# SCRAPER DE LOS ESTADÍSTICAS* DE LOS JUGADoRES DE LA LIGA MISTER FANTASY
+#  *estadísticas del desempeño del jugador en una jornada de LaLiga
+#
+#  -By: Daniel Gutiérrez Torres (https://github.com/guti10x)
+#
+#  -Esquema de funcionamiento:
+#    1- Nos logueamos en la web de MF
+#
+#    2-Accedemos al subapartado "Más" donde se encuentra el btn "Jugadores" el cual pulsaremos para acceder al listado de TODOS los jugadores disponibles en la web de MF.
+#
+#    3- Iteramos y accedemos a cada uno de los jugadores de la lista extrayendo datos y estadísticas como: puntuacion_fantasy, puntuacion_as, puntuacion_marca, puntuacion_mundo_deportivo, 
+#       media_puntos_local, media_puntos_visitante, valor_mercado, ultimo_rival, resultado_del_partido, proximo_rival, proximo_partido_es_local, balones_en_largo_totales, tiros_bloqueados_en_defensa, 
+#       ocasiones_claras_falladas, entradas_como_último_hombre, goles_evitados, salidas_precisas, minutos_jugados, goles_esperados, balones_en_largo_precisos, intercepciones, tiros_fuera, 
+#       tiros_bloqueados_en_ataque, posesiones_perdidas, paradas_desde_dentro_del_área, centros_totales, entradas_totales, despejes_por_alto, duelos_aéreos_perdidos, duelos_ganados, pases_totales,
+#       penaltis_cometidos, asistencias_esperadas, pérdidas, regates_totales, penaltis_provocados, despejes_con_los_puños, goles, asistencias_de_gol, tiros_al_palo, regates_completados, ocasiones_creadas, 
+#       penaltis_fallados, pases_clave, tiros_a_puerta, fueras_de_juego, centros_precisos, errores_que_llevan_a_disparo, despejes_totales, duelos_aéreos_ganados, paradas, pases_precisos, toques, 
+#       duelos_perdidos, faltas_recibidas, errores_que_llevan_a_gol, salidas_totales, penaltis_parados, regateado y faltas_cometidas
+#
+#    4- Además inicializa datos como id_jugador asociado, número de jornada, fecha de creación y actualización.
+
 # Dependencias
 from selenium import webdriver
 from selenium.webdriver.common.by import By
