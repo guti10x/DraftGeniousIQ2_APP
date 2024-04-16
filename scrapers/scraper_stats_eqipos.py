@@ -53,6 +53,28 @@ print(array_clave_valor)
 
 cursor.close() 
 
+###ACTUALIZAR EN LA BD LOS JUGADORES  TITULARES / NO TITULARES  DE LA PLANTILLA DEL USER
+
+## 1-Inicializamos todos los jugadores de todos los equipos a 0(no titulares)
+
+# Crear un cursor para ejecutar consultas SQL
+cursor = conexion.cursor()
+
+try:
+    # Consulta SQL para actualizar todos los valores de la columna titular a 0
+    consulta = "UPDATE jugadores SET titular = NULL;"
+
+    # Ejecutar la consulta
+    cursor.execute(consulta)
+
+    # Confirmar la transacción
+    conexion.commit()
+
+    print("Se han actualizado todos los jugadores a suplentes(0) correctamente.")
+except mysql.connector.Error as error:
+    print(f"No se ha podido ejecutar la consulta: {error}")
+
+
 # EMPEZAR SCRAPER
 print("Lanzando driver...")
 driver = webdriver.Chrome()
@@ -118,18 +140,18 @@ header_top_right_div = driver.find_element(By.CLASS_NAME, "header-top-right")
 balance_button = header_top_right_div.find_element(By.CLASS_NAME, "btn-balance")
 #Clickamos sobre el elemento dinero
 balance_button.click()
+time.sleep(2)
 
 # Encuentra el elemento <div> con la clase "amount "
 div_element = driver.find_element(By.XPATH,"/html/body/div[6]/div[3]/div/div/div")
 
 # Extrae el texto del elemento
 money = div_element.text
-print("money available: ",money," €")
+print("money available: ",money,"€")
 money=money.replace('.', '')
-
-
+time.sleep(2)
 driver.back()
-time.sleep(3)
+time.sleep(2)
 
 while True:
     try:
@@ -152,16 +174,21 @@ print("Btn Tabla pulsado")
 time.sleep(5)
 index=0
 while True:
-    #user_rows = driver.find_elements(By.CSS_SELECTOR, "li[class='']")
-    user_rows = driver.find_elements(By.XPATH, '//*[@id="inner-content"]/div[1]/div[2]/div[2]/ul/li')
+    user_rows = driver.find_elements(By.CSS_SELECTOR, "li[class='']")                           
 
     print("Número de equipos encontrados:",index,"--" ,len(user_rows))
     
     if len(user_rows) != 0:
         # Iterar sobre los elementos y hacer clic en cada uno
         for user_row in user_rows:
-            user_row.click()
-            time.sleep(5)
+            try:
+                user_row.click()
+            except (StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException) as e:
+                user_rows = driver.find_elements(By.XPATH, '//*[@id="inner-content"]/div[1]/div[2]/div[2]/ul/li')
+                time.sleep(1)
+                user_row.click()
+
+            time.sleep(4)
 
             #Nombre EQUIPO
             nameEquipo = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div[1]/div[2]/div[2]/div")
@@ -215,7 +242,7 @@ while True:
             print(titulares)
             
 
-            # JUGADORES TODOS LOS JUGADoRES
+            # JUGADORES TODOS LOS JUGADORES
             jugadores_equipo = []
             #Cambiar a la subventana equipo
             button = driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div[3]/div/div[2]/button')
@@ -260,26 +287,10 @@ while True:
 
             ###ACTUALIZAR EN LA BD LOS JUGADORES  TITULARES / NO TITULARES  DE LA PLANTILLA DEL USER
 
-            ## 1-Inicializamos todos los jugadores en plantilla del equipo a 0(no titulares)
-            
-            # Crear un cursor para ejecutar consultas SQL
-            cursor = conexion.cursor()
-            # Consulta SQL para actualizar el atributo titular a 0 para los jugadores del equipo asociado
-            consulta = f"UPDATE jugadores SET titular = NULL WHERE id_equipo = {id_asociado};"
-
-            try:
-                # Ejecutar la consulta
-                cursor.execute(consulta)
-
-                # Confirmar la transacción
-                conexion.commit()
-                print("Se han actualizado los jugadores de ",nombreEquipo, " a suplentes(0) correctamente.")
-            except mysql.connector.Error as error:
-                print(f"No se ha podido ejecutar la consulta: {error}")
-
             ## 2 Inicializamos todos los jugadores TITULARES de la plantilla del equipo a 1(titulares)
-
+            print("titulares a actualizar:", titulares_actualizados)
             for titular in titulares_actualizados:
+                time.sleep(1)
                 # Consulta SQL para actualizar el atributo titular a 1 del jugador 
                 consulta = f"UPDATE jugadores SET titular = 1 WHERE nombre = '{titular}';"
 
@@ -295,14 +306,16 @@ while True:
 
             #El dinero del resto de usuarios no es accesible, por lo que lo inicializamos a 0
             if id_asociado !=2:
-                money=None
+                moneyI=None
+            else:
+                moneyI=money
             
             # Consulta SQL para insertar datos en una tabla llamada 'datos'
             consulta = "INSERT INTO estadisticas_equipos (id_equipo, puntos, money, media_puntos_jornada, valor, num_jugadores, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, NOW(), NOW())"
             
             # Ejecutar la consulta
             try:
-                cursor.execute(consulta, (id_asociado, puntos,money, media_puntos_jornada, valor_team, num_jugadors))
+                cursor.execute(consulta, (id_asociado, puntos,moneyI, media_puntos_jornada, valor_team, num_jugadors))
                 conexion.commit()  # Confirmar la transacción
                 print(f"Datos insertados correctamente en la BD.")
             except mysql.connector.Error as err:
