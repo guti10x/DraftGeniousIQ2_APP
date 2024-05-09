@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `estadisticas_equipos` (
   KEY `id_equipo` (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadisticas_equipos: ~18 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadisticas_equipos: ~17 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadisticas_equipos` DISABLE KEYS */;
 INSERT INTO `estadisticas_equipos` (`id`, `id_equipo`, `puntos`, `money`, `media_puntos_jornada`, `valor`, `num_jugadores`, `created_at`, `updated_at`) VALUES
 	(48, 1, 1159, NULL, 50.4, 321.4, 24, '2024-04-18 12:30:06', '2024-04-18 12:30:06'),
@@ -182,15 +182,18 @@ CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=308 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadisticas_jornadas: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadisticas_jornadas: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadisticas_jornadas` DISABLE KEYS */;
 INSERT INTO `estadisticas_jornadas` (`id`, `id_player`, `jornada`, `puntuacion_fantasy`, `puntuacion_as`, `puntuacion_marca`, `puntuacion_mundo_deportivo`, `media_puntos_visitante`, `media_puntos_local`, `valor_mercado`, `ultimo_rival`, `resultado_del_partido`, `proximo_rival`, `proximo_partido_es_local`, `balones_en_largo_totales`, `ocasiones_claras_falladas`, `tiros_bloqueados_en_defensa`, `entradas_como_último_hombre`, `goles_evitados`, `salidas_precisas`, `minutos_jugados`, `goles_esperados`, `balones_en_largo_precisos`, `intercepciones`, `tiros_fuera`, `tiros_bloqueados_en_ataque`, `posesiones_perdidas`, `paradas_desde_dentro_del_área`, `centros_totales`, `entradas_totales`, `despejes_por_alto`, `duelos_aéreos_perdidos`, `duelos_ganados`, `pases_totales`, `penaltis_cometidos`, `asistencias_esperadas`, `pérdidas`, `regates_totales`, `penaltis_provocados`, `despejes_con_los_puños`, `goles`, `asistencias_de_gol`, `tiros_al_palo`, `regates_completados`, `ocasiones_creadas`, `penaltis_fallados`, `pases_clave`, `tiros_a_puerta`, `fueras_de_juego`, `centros_precisos`, `errores_que_llevan_a_disparo`, `despejes_totales`, `duelos_aéreos_ganados`, `paradas`, `pases_precisos`, `toques`, `duelos_perdidos`, `faltas_recibidas`, `errores_que_llevan_a_gol`, `salidas_totales`, `penaltis_parados`, `regateado`, `faltas_cometidas`, `created_at`, `updated_at`) VALUES
-	(304, 1, 20, 14, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 2, 3, 3, 4, 3, 4, 4, 4, 5, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(305, 6, 20, 14, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 2, 3, 3, 4, 3, 4, 4, 4, 5, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(306, 9, 20, 14, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 2, 3, 3, 4, 3, 4, 4, 4, 5, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(307, 2, 20, 14, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 2, 3, 3, 4, 3, 4, 4, 4, 5, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL);
+	(304, 1, 20, 1, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Sevilla', 'false', 5, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(305, 2, 20, 6, 1, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(306, 3, 20, 9, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(307, 6, 20, 2, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(308, 23, 20, 5, 12, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(309, 31, 20, 2, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+	(310, 41, 20, 5, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `estadisticas_jornadas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.failed_jobs
@@ -270,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
 INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo`, `titular`, `transferible`, `recomendado`, `transferido_desde`, `edad`, `altura`, `peso`, `created_at`, `updated_at`) VALUES
 	(1, 9, 'Jude Bellingham', 'MC', 'Real Madrid', NULL, 1, 1, '2', 20, 1.88, NULL, '2024-04-18 09:52:21', '2024-04-18 09:52:21'),
-	(2, 5, 'Ante Budimir', 'DL', 'Osasuna', NULL, 1, NULL, '1', 32, 1.9, 75, '2024-04-18 09:52:26', '2024-04-18 09:52:26'),
+	(2, 5, 'Ante Budimir', 'DL', 'Osasuna', NULL, 1, 1, '1', 32, 1.9, 75, '2024-04-18 09:52:26', '2024-04-18 09:52:26'),
 	(3, 1, 'Isco', 'MC', 'Betis', NULL, 1, 1, '0', 31, 1.76, 74, '2024-04-18 09:52:31', '2024-04-18 09:52:31'),
 	(4, 7, 'Sávio', 'DL', 'Girona', NULL, 1, NULL, NULL, 20, 1.76, NULL, '2024-04-18 09:52:35', '2024-04-18 09:52:35'),
 	(5, 6, 'Artem Dovbyk', 'DL', 'Girona', NULL, NULL, NULL, NULL, 26, 1.89, 76, '2024-04-18 09:52:39', '2024-04-18 09:52:39'),
@@ -835,6 +838,32 @@ INSERT INTO `notificaciones` (`id_ntf`, `id_user`, `type`, `title`, `content`, `
 	(2, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Pedri', NULL, NULL);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 
+-- Volcando estructura para tabla draftgeniousiq2.partidos
+CREATE TABLE IF NOT EXISTS `partidos` (
+  `id_partido` int(11) NOT NULL AUTO_INCREMENT,
+  `jornada` int(11) NOT NULL,
+  `equipo_local` text DEFAULT NULL,
+  `equipo_visitante` text DEFAULT NULL,
+  `goles_local` int(11) DEFAULT NULL,
+  `goles_visitante` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_partido`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.partidos: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `partidos` DISABLE KEYS */;
+INSERT INTO `partidos` (`id_partido`, `jornada`, `equipo_local`, `equipo_visitante`, `goles_local`, `goles_visitante`) VALUES
+	(1, 34, 'Getafe', 'Athletic Club', 0, 2),
+	(2, 34, 'Real Sociedad', 'Las Palmas', 2, 0),
+	(3, 34, 'Real Madrid', 'Cádiz', 3, 0),
+	(4, 34, 'Girona', 'Barcelona', 4, 2),
+	(5, 34, 'Mallorca', 'Atlético de Madrid', 0, 1),
+	(6, 34, 'Osasuna', 'Betis', 0, 2),
+	(7, 34, 'Celta de Vigo', 'Villarreal', 0, 2),
+	(8, 34, 'Valencia', 'Alavés', 0, 1),
+	(9, 34, 'Sevilla', 'Granada', 3, 0),
+	(10, 34, 'Rayo Vallecano', 'Almería', 0, 1);
+/*!40000 ALTER TABLE `partidos` ENABLE KEYS */;
+
 -- Volcando estructura para tabla draftgeniousiq2.password_reset_tokens
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
@@ -877,14 +906,18 @@ CREATE TABLE IF NOT EXISTS `predicciones_puntos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.predicciones_puntos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.predicciones_puntos: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `predicciones_puntos` DISABLE KEYS */;
 INSERT INTO `predicciones_puntos` (`id`, `id_player`, `valor`, `created_at`, `updated_at`) VALUES
-	(6, 2, 9, NULL, NULL),
-	(7, 9, 14, NULL, NULL),
-	(8, 1, 3, NULL, NULL);
+	(6, 1, 9, NULL, NULL),
+	(7, 2, 14, NULL, NULL),
+	(8, 3, 5, NULL, NULL),
+	(9, 6, 3, NULL, NULL),
+	(10, 23, 11, NULL, NULL),
+	(11, 31, 6, NULL, NULL),
+	(12, 41, 5, NULL, NULL);
 /*!40000 ALTER TABLE `predicciones_puntos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.predicciones_valor_mercado
@@ -896,14 +929,18 @@ CREATE TABLE IF NOT EXISTS `predicciones_valor_mercado` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.predicciones_valor_mercado: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.predicciones_valor_mercado: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `predicciones_valor_mercado` DISABLE KEYS */;
 INSERT INTO `predicciones_valor_mercado` (`id`, `id_player`, `valor`, `created_at`, `updated_at`) VALUES
-	(5, 1, 21326000, NULL, NULL),
-	(6, 2, 26320800, NULL, NULL),
-	(7, 9, 15326600, NULL, NULL);
+	(1, 1, 21326000, NULL, NULL),
+	(2, 2, 26320800, NULL, NULL),
+	(3, 3, 15326600, NULL, NULL),
+	(6, 6, 6320800, NULL, NULL),
+	(23, 23, 12320800, NULL, NULL),
+	(31, 31, 5520800, NULL, NULL),
+	(41, 41, 21320800, NULL, NULL);
 /*!40000 ALTER TABLE `predicciones_valor_mercado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.sessions
@@ -942,14 +979,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `id_team` (`id_team`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.users: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.users: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `id_team`, `name`, `rol`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 6, 'Borja Monsalve Pi', 1, 'admin@admin.com', NULL, '$2y$12$LA1vgJOG575NEJltAAMkiOJG6t0Td1Egc0RQnrpafieM7Z4Ap3Uy6', NULL, '2024-04-11 10:47:31', '2024-04-28 12:10:08'),
-	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', NULL, 'hola', NULL, '2024-04-11 10:47:31', '2024-04-28 10:56:29'),
-	(30, 12, 'pepe', 0, 'cd@g.comsss', NULL, '$2y$12$YbOAwre2pPm5qzi5ZLNl.udqBfiMzGZ58w4ADTsG32ebSZo7JMoVW', NULL, '2024-04-27 21:55:05', '2024-04-28 12:10:04');
+	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', NULL, 'hola', NULL, '2024-04-11 10:47:31', '2024-05-09 18:58:50'),
+	(3, 1, 'Alberto', 1, 'adminalberto@admin.com', NULL, '$2y$12$OLaFAKHDqPmE/hNx/PAb8ekJyiK1guC96CJ8.yq7clG2NH.snenUW', NULL, '2024-04-11 10:47:31', '2024-05-09 18:58:17'),
+	(41, 3, 'Daniel Gutiérrez', 0, '22060943@live.uem.es', NULL, '$2y$12$8tNdp56izqeinIsDDnnxZuwwUilJwNvMSk3ivGryzCtxNlyMD/oQm', NULL, '2024-05-02 10:01:10', '2024-05-09 18:58:56');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
