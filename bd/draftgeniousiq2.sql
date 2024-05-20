@@ -277,7 +277,7 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(3, 1, 'Isco', 'MC', 'Betis', NULL, 1, 1, '0', 31, 1.76, 74, '2024-04-18 09:52:31', '2024-04-18 09:52:31'),
 	(4, 7, 'Sávio', 'DL', 'Girona', NULL, 1, NULL, NULL, 20, 1.76, NULL, '2024-04-18 09:52:35', '2024-04-18 09:52:35'),
 	(5, 6, 'Artem Dovbyk', 'DL', 'Girona', NULL, NULL, NULL, NULL, 26, 1.89, 76, '2024-04-18 09:52:39', '2024-04-18 09:52:39'),
-	(6, 2, 'Antoine Griezmann', 'DL', 'Atlético de Madrid', NULL, NULL, 1, NULL, 33, 1.76, 71, '2024-04-18 09:52:44', '2024-04-18 09:52:44'),
+	(6, 2, 'Antoine Griezmann', 'DL', 'Atlético de Madrid', NULL, 1, 1, NULL, 33, 1.76, 71, '2024-04-18 09:52:44', '2024-04-18 09:52:44'),
 	(7, 3, 'Iñaki Williams', 'DL', 'Athletic Club', NULL, NULL, NULL, NULL, 29, 1.86, 76, '2024-04-18 09:52:48', '2024-04-18 09:52:48'),
 	(8, 1, 'Pepelu', 'MC', 'Valencia', NULL, NULL, NULL, NULL, 25, 1.85, 73, '2024-04-18 09:52:53', '2024-04-18 09:52:53'),
 	(9, 7, 'Gorka Guruzeta', 'DL', 'Athletic Club', NULL, NULL, NULL, NULL, 27, 1.88, NULL, '2024-04-18 09:52:58', '2024-04-18 09:52:58'),
@@ -838,6 +838,25 @@ INSERT INTO `notificaciones` (`id_ntf`, `id_user`, `type`, `title`, `content`, `
 	(2, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Pedri', NULL, NULL);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 
+-- Volcando estructura para tabla draftgeniousiq2.novedades_app
+CREATE TABLE IF NOT EXISTS `novedades_app` (
+  `id_novedad` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` text DEFAULT NULL,
+  `subtitulo` text DEFAULT NULL,
+  `img` text DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  PRIMARY KEY (`id_novedad`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.novedades_app: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `novedades_app` DISABLE KEYS */;
+INSERT INTO `novedades_app` (`id_novedad`, `titulo`, `subtitulo`, `img`, `created_at`, `updated_at`) VALUES
+	(1, 'Novedades Frescas: ¡No te Pierdas la última Actualizacion!', 'Eficiencia y Elegancia sin Complicaciones, Explora la Comodidad de Nuestra Nueva Interfaz', 'interfaz', '2024-05-17', '2024-05-17'),
+	(2, 'Nuevos modelos de IA disponibles', 'Prueba Nuestros Últimos Modelos de Predicción para Llevar tus estrategias al Siguiente Nivel!', 'ia', '2024-05-17', '2024-05-17'),
+	(3, 'Nuevos planes de subcripción disponibles', 'Accede a Funcionalidades Exclusivas y Contenidos Premium para llevar a tu equipo a la cima.', 'subscripcion', '2024-05-17', '2024-05-17');
+/*!40000 ALTER TABLE `novedades_app` ENABLE KEYS */;
+
 -- Volcando estructura para tabla draftgeniousiq2.partidos
 CREATE TABLE IF NOT EXISTS `partidos` (
   `id_partido` int(11) NOT NULL AUTO_INCREMENT,
@@ -846,22 +865,24 @@ CREATE TABLE IF NOT EXISTS `partidos` (
   `equipo_visitante` text DEFAULT NULL,
   `goles_local` int(11) DEFAULT NULL,
   `goles_visitante` int(11) DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id_partido`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.partidos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.partidos: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `partidos` DISABLE KEYS */;
-INSERT INTO `partidos` (`id_partido`, `jornada`, `equipo_local`, `equipo_visitante`, `goles_local`, `goles_visitante`) VALUES
-	(1, 34, 'Getafe', 'Athletic Club', 0, 2),
-	(2, 34, 'Real Sociedad', 'Las Palmas', 2, 0),
-	(3, 34, 'Real Madrid', 'Cádiz', 3, 0),
-	(4, 34, 'Girona', 'Barcelona', 4, 2),
-	(5, 34, 'Mallorca', 'Atlético de Madrid', 0, 1),
-	(6, 34, 'Osasuna', 'Betis', 0, 2),
-	(7, 34, 'Celta de Vigo', 'Villarreal', 0, 2),
-	(8, 34, 'Valencia', 'Alavés', 0, 1),
-	(9, 34, 'Sevilla', 'Granada', 3, 0),
-	(10, 34, 'Rayo Vallecano', 'Almería', 0, 1);
+INSERT INTO `partidos` (`id_partido`, `jornada`, `equipo_local`, `equipo_visitante`, `goles_local`, `goles_visitante`, `updated_at`, `created_at`) VALUES
+	(1, 34, 'Getafe', 'Athletic Club', 0, 2, '2024-05-17', '2024-05-17'),
+	(2, 34, 'Real Sociedad', 'Las Palmas', 2, 0, '2024-05-17', '2024-05-17'),
+	(3, 34, 'Real Madrid', 'Cádiz', 3, 0, '2024-05-17', '2024-05-17'),
+	(4, 34, 'Girona', 'Barcelona', 4, 2, '2024-05-17', '2024-05-17'),
+	(5, 34, 'Mallorca', 'Atlético de Madrid', 0, 1, '2024-05-17', '2024-05-17'),
+	(6, 34, 'Osasuna', 'Betis', 0, 2, '2024-05-17', '2024-05-17'),
+	(7, 34, 'Celta de Vigo', 'Villarreal', 0, 2, '2024-05-17', '2024-05-17'),
+	(8, 34, 'Valencia', 'Alavés', 0, 1, '2024-05-17', '2024-05-17'),
+	(9, 34, 'Sevilla', 'Granada', 3, 0, '2024-05-17', '2024-05-17'),
+	(10, 34, 'Rayo Vallecano', 'Almería', 0, 1, '2024-05-17', '2024-05-17');
 /*!40000 ALTER TABLE `partidos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.password_reset_tokens
@@ -979,15 +1000,37 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `id_team` (`id_team`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.users: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.users: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `id_team`, `name`, `rol`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', NULL, 'hola', NULL, '2024-04-11 10:47:31', '2024-05-09 18:58:50'),
-	(3, 1, 'Alberto', 1, 'adminalberto@admin.com', NULL, '$2y$12$OLaFAKHDqPmE/hNx/PAb8ekJyiK1guC96CJ8.yq7clG2NH.snenUW', NULL, '2024-04-11 10:47:31', '2024-05-09 18:58:17'),
-	(41, 3, 'Daniel Gutiérrez', 0, '22060943@live.uem.es', NULL, '$2y$12$8tNdp56izqeinIsDDnnxZuwwUilJwNvMSk3ivGryzCtxNlyMD/oQm', NULL, '2024-05-02 10:01:10', '2024-05-09 18:58:56');
+	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', NULL, '$2y$12$NnkPvIXK.Nx8gYTJIOV.HOkFkQWEKiiMnxVOyjwwHk66cYA2L26xq', NULL, '2024-04-11 10:47:31', '2024-05-13 14:17:08'),
+	(3, 3, 'Alberto', 1, 'adminalberto@admin.com', NULL, '$2y$12$OLaFAKHDqPmE/hNx/PAb8ekJyiK1guC96CJ8.yq7clG2NH.snenUW', NULL, '2024-04-11 10:47:31', '2024-05-14 12:41:29'),
+	(41, 16, 'Daniel Gutiérrez', 0, '22060943@live.uem.es', NULL, '$2y$12$8tNdp56izqeinIsDDnnxZuwwUilJwNvMSk3ivGryzCtxNlyMD/oQm', NULL, '2024-05-02 10:01:10', '2024-05-14 12:41:32'),
+	(124, 0, 'guti10x_', 0, 'gt104515@gmail.com', NULL, '$2y$12$jtyuqy.bSvxYXCDZ4EhIP.jSy3x5jgdFZ.J2hP0sqL1U8Pr/qtKja', NULL, '2024-05-13 16:33:14', '2024-05-13 16:33:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Volcando estructura para tabla draftgeniousiq2.valoraciones_app
+CREATE TABLE IF NOT EXISTS `valoraciones_app` (
+  `id_valoration` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL DEFAULT 0,
+  `nombre_resenador` text NOT NULL,
+  `titulo` text DEFAULT NULL,
+  `contenido` text DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  PRIMARY KEY (`id_valoration`),
+  KEY `id_usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=423 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla draftgeniousiq2.valoraciones_app: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `valoraciones_app` DISABLE KEYS */;
+INSERT INTO `valoraciones_app` (`id_valoration`, `id_usuario`, `nombre_resenador`, `titulo`, `contenido`, `rating`, `updated_at`, `created_at`) VALUES
+	(1, 0, 'Andres Parra', 'Increibles predicciones', 'Esta aplicación ofrece predicciones muy precisas para la liga fantasy, con una interfaz fácil de usar. Recomiendo su uso.', 4, '2024-05-17', '2024-05-17'),
+	(2, 0, 'Álvaro Carrizosa', 'Muy recomnedable la aplicación', 'Esta aplicación es increíble. ¡La recomiendo totalmente!.  Desde que la descargué soy el lider de mi liga Fantasy.', NULL, '2024-05-17', '2024-05-17');
+/*!40000 ALTER TABLE `valoraciones_app` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
