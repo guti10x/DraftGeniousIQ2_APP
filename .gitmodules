@@ -1,6 +1,0 @@
-[submodule "FRONT"]
-	path = FRONT
-	url = https://github.com/guti10x/DraftGeniousIQ2_FRONT.git
-[submodule "API"]
-	path = API
-	url = https://github.com/guti10x/DraftGeniousIQ2_API.git
