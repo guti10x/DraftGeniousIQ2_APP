@@ -69,7 +69,7 @@ INSERT INTO `equipos` (`id_equipo`, `nombre`, `logo`, `updated_at`, `created_at`
 	(12, 'M32-G8 - Los Capys', '../../assets/teams/teams_MF/M32-G8 - Los Capys.png', '2024-04-25 10:45:01', '2024-03-30 10:46:30'),
 	(13, 'M32-G2-dreamx1', '../../assets/teams/teams_MF/M32-G2-dreamx1.png', '2024-04-25 10:47:11', '2024-03-30 10:46:30'),
 	(14, 'M31-G4-DLA', '../../assets/teams/teams_MF/M31-G4-DLA.png', '2024-04-25 10:45:21', '2024-03-30 10:46:30'),
-	(15, 'M32-G6_Jammin&#039', '../../assets/teams/teams_MF/M32-G6_Jammin&#039.png', '2024-04-28 14:06:35', '2024-03-30 10:46:30'),
+	(15, 'M32-G6_Jammin039', '../../assets/teams/teams_MF/M32-G6_Jammin039.png', '2024-05-29 22:14:48', '2024-03-30 10:46:30'),
 	(16, 'M32-G2-xGarcii', '../../assets/teams/teams_MF/M32-G2-xGarcii.png', '2024-04-25 10:46:43', '2024-03-30 10:46:30'),
 	(17, 'M31-G5-REALE', '../../assets/teams/teams_MF/M31-G5-REALE.png', '2024-04-25 10:47:14', '2024-03-30 10:46:30'),
 	(18, 'Jafeth Suarez', '../../assets/teams/teams_MF/Jafeth Suarez.png', '2024-04-25 10:47:44', '2024-03-30 10:46:30');
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `estadisticas_equipos` (
   KEY `id_equipo` (`id_equipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadisticas_equipos: ~17 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadisticas_equipos: ~18 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadisticas_equipos` DISABLE KEYS */;
 INSERT INTO `estadisticas_equipos` (`id`, `id_equipo`, `puntos`, `money`, `media_puntos_jornada`, `valor`, `num_jugadores`, `created_at`, `updated_at`) VALUES
 	(48, 1, 1159, NULL, 50.4, 321.4, 24, '2024-04-18 12:30:06', '2024-04-18 12:30:06'),
@@ -182,18 +182,35 @@ CREATE TABLE IF NOT EXISTS `estadisticas_jornadas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=650 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.estadisticas_jornadas: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.estadisticas_jornadas: ~24 rows (aproximadamente)
 /*!40000 ALTER TABLE `estadisticas_jornadas` DISABLE KEYS */;
 INSERT INTO `estadisticas_jornadas` (`id`, `id_player`, `jornada`, `puntuacion_fantasy`, `puntuacion_as`, `puntuacion_marca`, `puntuacion_mundo_deportivo`, `media_puntos_visitante`, `media_puntos_local`, `valor_mercado`, `ultimo_rival`, `resultado_del_partido`, `proximo_rival`, `proximo_partido_es_local`, `balones_en_largo_totales`, `ocasiones_claras_falladas`, `tiros_bloqueados_en_defensa`, `entradas_como_último_hombre`, `goles_evitados`, `salidas_precisas`, `minutos_jugados`, `goles_esperados`, `balones_en_largo_precisos`, `intercepciones`, `tiros_fuera`, `tiros_bloqueados_en_ataque`, `posesiones_perdidas`, `paradas_desde_dentro_del_área`, `centros_totales`, `entradas_totales`, `despejes_por_alto`, `duelos_aéreos_perdidos`, `duelos_ganados`, `pases_totales`, `penaltis_cometidos`, `asistencias_esperadas`, `pérdidas`, `regates_totales`, `penaltis_provocados`, `despejes_con_los_puños`, `goles`, `asistencias_de_gol`, `tiros_al_palo`, `regates_completados`, `ocasiones_creadas`, `penaltis_fallados`, `pases_clave`, `tiros_a_puerta`, `fueras_de_juego`, `centros_precisos`, `errores_que_llevan_a_disparo`, `despejes_totales`, `duelos_aéreos_ganados`, `paradas`, `pases_precisos`, `toques`, `duelos_perdidos`, `faltas_recibidas`, `errores_que_llevan_a_gol`, `salidas_totales`, `penaltis_parados`, `regateado`, `faltas_cometidas`, `created_at`, `updated_at`) VALUES
-	(304, 1, 20, 1, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Sevilla', 'false', 5, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(305, 2, 20, 6, 1, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(306, 3, 20, 9, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(307, 6, 20, 2, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(308, 23, 20, 5, 12, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(309, 31, 20, 2, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
-	(310, 41, 20, 5, 10, 15, 10, 3, 4, 4555662, 'Sevilla', 'win', 'Granada', 'true', 4, 3, 3, 4, 3, 4, 4, 4, 2, 4, 5, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL);
+	(1, 23, 37, 5, 6, 6, 2, 4.8, 7.1, 14327000, 'Girona', 'win', 'Celta de Vigo', 'false', 7, NULL, 1, NULL, 2, 5, 90, 1, 4, 1, NULL, NULL, 5, 2, 5, 5, 2, 1, 1, 8, NULL, NULL, 1, 2, NULL, 1, 1, 1, NULL, NULL, 3, NULL, 1, NULL, NULL, 4, 1, 1, 1, 2, 4, 7, 1, 2, 1, 4, NULL, 0, 0, '2024-05-31 05:39:33', '2024-05-31 05:49:21'),
+	(2, 99, 37, 0, -2, 2, 3, -2, 4.1, 14737000, 'Barcelona', 'loss', 'Athletic Club', 'true', 4, 2, 0, 0, NULL, NULL, 90, 1, 1, 3, 2, 1, 2, NULL, 1, 3, NULL, 3, 1, 19, 1, 1, 1, 3, NULL, NULL, 0, 0, 0, 1, 4, 1, NULL, 2, 1, 5, 1, NULL, 3, NULL, 3, 8, 4, 5, NULL, NULL, NULL, 1, 2, '2024-05-31 05:49:46', '2024-05-31 05:50:04'),
+	(3, 31, 37, 5, 6, 6, 2, 4.8, 7.1, 23121000, 'Rayo Vallecano', 'win', 'Sevilla', 'false', 15, NULL, 2, NULL, NULL, NULL, 90, 1, 1, 1, NULL, NULL, 2, NULL, 9, 1, NULL, 1, 3, 18, NULL, NULL, 3, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:45', '2024-05-31 05:50:04'),
+	(4, 20, 37, 10, 9, 9, 10, 5.8, 7.1, 19501000, 'Rayo Vallecano', 'win', 'Betis', 'false', 17, 1, 2, 1, 1, 1, 90, 1, 3, 1, NULL, 1, 1, NULL, 8, 1, NULL, NULL, 2, 10, NULL, NULL, 1, 3, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, 1, 3, '2024-05-31 05:49:44', '2024-05-31 05:50:03'),
+	(5, 45, 37, 5, 6, 6, 2, 4.8, 7.1, 13654000, 'Valencia', 'win', 'Granada', 'true', 17, NULL, 1, NULL, 1, NULL, 90, 1, 5, 1, NULL, 1, 4, NULL, 1, 2, NULL, NULL, 1, 14, NULL, NULL, 2, 2, NULL, NULL, 1, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, 0, 1, '2024-05-31 05:50:01', '2024-05-31 05:50:02'),
+	(6, 6, 37, 5, 6, 6, 2, 4.8, 7.1, 25121000, 'Osasuna', 'loss', 'Real Sociedad', 'win', 7, 2, 1, NULL, 1, NULL, 90, 1, 6, 2, 1, NULL, 1, NULL, 4, 1, NULL, 2, 3, 9, NULL, 1, 3, 4, NULL, NULL, 1, 0, NULL, 4, 3, NULL, 1, 3, 2, 5, 1, NULL, 3, NULL, 6, 8, 2, 4, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:59', '2024-05-31 05:49:43'),
+	(7, 41, 37, 5, 6, 6, 2, 4.8, 7.1, 18452000, 'Valencia', 'win', 'Granada', 'true', 17, NULL, NULL, 1, NULL, NULL, 90, 1, 1, 1, NULL, 1, 2, NULL, 5, 2, NULL, NULL, 1, 20, NULL, NULL, 1, 1, NULL, NULL, 1, 1, 1, 2, 1, NULL, NULL, 1, NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL, 1, 4, NULL, NULL, NULL, 0, 1, '2024-05-31 05:50:00', '2024-05-31 05:50:05'),
+	(8, 23, 37, 5, 6, 6, 2, 4.8, 7.1, 14547000, 'Girona', 'loss', 'Celta de Vigo', 'false', 18, 1, 1, NULL, NULL, NULL, 90, 1, 4, 1, NULL, 1, 1, NULL, 5, 4, NULL, NULL, 2, 15, NULL, NULL, 3, 2, NULL, NULL, 1, 1, 1, NULL, 1, NULL, 1, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, 1, 2, '2024-05-31 05:49:42', '2024-05-31 05:50:06'),
+	(9, 90, 37, 5, 6, 6, 2, 4.8, 7.1, 18774000, 'Valencia', 'draw', 'Granada', 'draw', 18, NULL, NULL, 2, NULL, NULL, 90, 1, 5, 1, NULL, NULL, 2, NULL, 7, 1, NULL, 1, 1, 18, 1, NULL, 2, 2, 1, NULL, 2, 0, NULL, 1, 2, NULL, NULL, 2, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, 1, 1, '2024-05-31 05:49:58', '2024-05-31 05:50:07'),
+	(10, 109, 37, 3, 2, 6, 3, 3.1, 5.4, 15201000, 'Rayo Vallecano', 'win', 'Sevilla', 'false', 17, NULL, 1, NULL, 1, NULL, 90, 1, 4, 1, NULL, 2, 2, NULL, 4, 2, NULL, NULL, 1, 16, NULL, NULL, 2, 1, NULL, NULL, 1, 0, NULL, 2, 1, NULL, NULL, 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, 1, 4, 1, NULL, NULL, 1, 0, '2024-05-31 05:49:56', '2024-05-31 05:50:08'),
+	(11, 192, 37, 5, 6, 6, 2, 4.8, 7.1, 15659, 'Rayo Vallecano', 'win', 'Sevilla', 'false', 17, NULL, 1, NULL, NULL, NULL, 90, 1, 4, 1, NULL, NULL, 2, NULL, 1, 1, NULL, 1, 1, 15, NULL, 1, 4, 3, NULL, NULL, 1, 1, NULL, NULL, 4, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:55', '2024-05-31 05:50:09'),
+	(13, 38, 37, 5, 6, 6, 2, 4.8, 7.1, 19855000, 'Real Madrid', 'loss', 'Osasuna', 'false', 17, 1, 1, 1, NULL, NULL, 90, 1, 5, 1, NULL, NULL, 2, NULL, 4, 2, NULL, 1, 1, 13, NULL, 1, 1, NULL, NULL, NULL, 0, 1, NULL, 1, 2, 1, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, 1, 0, '2024-05-31 05:49:32', '2024-05-31 05:49:39'),
+	(14, 72, 37, 5, 6, 6, 2, 4.8, 7.1, 15225000, 'Villareal', 'win', 'Betis', 'draw', 14, NULL, NULL, NULL, NULL, NULL, 90, 1, 4, 1, NULL, 1, 1, NULL, 1, 1, NULL, 1, 1, 12, NULL, NULL, 1, 2, NULL, NULL, 1, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, 1, 1, '2024-05-31 05:49:33', '2024-05-31 05:49:38'),
+	(15, 117, 37, 5, 6, 6, 2, 4.8, 7.1, 12987000, 'Villareal', 'win', 'Betis', 'draw', 9, NULL, NULL, 1, NULL, NULL, 90, 1, 5, 1, NULL, 1, 1, NULL, 1, 2, NULL, 1, 1, 18, NULL, NULL, 1, 3, NULL, NULL, 1, 1, NULL, NULL, 1, NULL, 1, 2, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, 2, 5, NULL, NULL, NULL, 1, 2, '2024-05-31 05:49:31', '2024-05-31 05:49:37'),
+	(16, 206, 37, 5, 6, 6, 2, 4.8, 7.1, 4368000, 'Girona', 'loss', 'Celta de Vigo', 'draw', 10, 1, 1, NULL, NULL, NULL, 90, 1, 7, 1, NULL, 1, 3, NULL, 1, 2, NULL, 1, 2, 15, NULL, NULL, 2, 5, NULL, NULL, 1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, 1, 2, '2024-05-31 05:49:33', '2024-05-31 05:49:40'),
+	(17, 47, 37, 5, 6, 6, 2, 4.8, 7.1, 13589000, 'Osasuna', 'loss', 'Real Sociedad', 'win', 7, NULL, NULL, 1, NULL, NULL, 90, 1, 6, 1, NULL, NULL, 3, NULL, 1, 1, NULL, 1, 2, 18, NULL, 1, 1, 3, 1, NULL, 1, 1, NULL, NULL, 1, NULL, 2, 2, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, 1, NULL, NULL, 0, 3, '2024-05-31 05:49:34', '2024-05-31 05:49:36'),
+	(19, 112, 37, 5, 6, 6, 2, 4.8, 7.1, 14121000, 'Rayo Vallecano', 'win', 'Sevilla', 'false', 14, NULL, 1, NULL, 1, NULL, 90, 1, 5, 1, NULL, 1, 2, NULL, 4, 4, NULL, NULL, 1, 21, NULL, NULL, 1, 2, NULL, NULL, 1, 1, NULL, NULL, 1, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, 1, 0, '2024-05-31 05:49:29', '2024-05-31 05:49:29'),
+	(20, 10, 37, 5, 6, 6, 2, 5.3, 5.2, 14914000, 'Cádiz', 'draw', 'Alavés', 'draw', 7, 1, 1, 1, NULL, NULL, 90, 1, 2, 1, NULL, NULL, 1, NULL, 6, 3, 1, 1, 1, 9, NULL, NULL, 4, 1, NULL, NULL, 0, 1, NULL, 1, 2, NULL, 2, 0, NULL, 3, 2, 2, 2, NULL, 8, 8, 1, 3, NULL, NULL, NULL, 0, 2, '2024-05-31 05:49:30', '2024-05-31 05:49:27'),
+	(21, 28, 37, 5, 5, 9, 9, 4.8, 6.1, 14478000, 'Osasuna', 'win', 'Real Sociedad', 'false', 21, 1, NULL, NULL, NULL, NULL, 90, 1, 4, 1, NULL, 1, 3, NULL, 2, 2, NULL, 2, 1, 14, NULL, NULL, 2, 2, NULL, NULL, 1, 0, NULL, NULL, 2, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2, 4, NULL, NULL, NULL, 0, 2, '2024-05-31 05:49:24', '2024-05-31 05:49:26'),
+	(22, 127, 37, 7, 5, 5, 6, 2.3, 8.3, 10504000, 'Getafe', 'win', 'Almeria', 'draw', 5, NULL, NULL, 1, NULL, NULL, 90, 1, 2, 1, NULL, NULL, 1, NULL, 2, 1, NULL, NULL, 0, 15, NULL, NULL, 2, 1, NULL, NULL, 1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:25', '2024-05-31 05:49:23'),
+	(23, 108, 37, 10, 10, 6, 10, 3.8, 4.6, 6996000, 'Atlético de Madrid', 'win', 'Villarreal', 'true', 4, 2, 0, 0, NULL, NULL, 90, 1, 1, 3, 2, 1, 2, NULL, 1, 3, NULL, 3, 1, 19, 1, 1, 1, 3, NULL, NULL, 0, 1, 0, 1, 4, 1, NULL, 2, 1, 5, 1, NULL, 3, NULL, 3, 8, 4, 5, NULL, NULL, NULL, 1, 2, '2024-05-31 05:49:46', '2024-05-31 05:50:04'),
+	(24, 263, 37, 5, 6, 6, 2, 5.3, 5.2, 14914000, 'Cádiz', 'draw', 'Alavés', 'draw', 7, 1, 1, 1, 2, NULL, 90, 1, 2, 1, NULL, 1, 1, NULL, 6, 3, 1, 1, 1, 9, NULL, 1, 4, 1, NULL, NULL, 1, 1, 1, 1, 2, NULL, 2, 0, 1, 2, 2, 2, 2, NULL, 8, 8, 1, 3, 1, NULL, NULL, 1, 1, '2024-05-31 05:49:30', '2024-05-31 05:49:27'),
+	(25, 226, 37, 5, 6, 6, 2, 5.5, 5.2, 14914000, 'Cádiz', 'draw', 'Alavés', 'draw', 7, 1, 1, 1, 2, NULL, 90, 1, 2, 1, NULL, 1, 1, NULL, 6, 3, 1, 1, 1, 9, NULL, NULL, 4, 1, NULL, NULL, 1, 1, NULL, 1, 2, NULL, 2, 0, NULL, 2, 2, 2, 2, NULL, 8, 8, 1, 3, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:30', '2024-05-31 05:49:27'),
+	(26, 220, 37, 5, 6, 6, 2, 4.4, 5.2, 14914000, 'Cádiz', 'draw', 'Alavés', 'draw', 7, 1, 1, 1, 2, NULL, 90, 1, 2, 1, NULL, NULL, 1, NULL, 6, 3, 1, 1, 1, 9, NULL, 1, 4, 1, NULL, NULL, 0, 1, NULL, 1, 2, NULL, 2, 0, NULL, 1, 2, 2, 2, NULL, 8, 8, 1, 3, NULL, NULL, NULL, 0, 1, '2024-05-31 05:49:30', '2024-05-31 05:49:27');
 /*!40000 ALTER TABLE `estadisticas_jornadas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.failed_jobs
@@ -272,16 +289,16 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
 -- Volcando datos para la tabla draftgeniousiq2.jugadores: ~527 rows (aproximadamente)
 /*!40000 ALTER TABLE `jugadores` DISABLE KEYS */;
 INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo`, `titular`, `transferible`, `recomendado`, `transferido_desde`, `edad`, `altura`, `peso`, `created_at`, `updated_at`) VALUES
-	(1, 9, 'Jude Bellingham', 'MC', 'Real Madrid', NULL, 1, 1, '2', 20, 1.88, NULL, '2024-04-18 09:52:21', '2024-04-18 09:52:21'),
-	(2, 5, 'Ante Budimir', 'DL', 'Osasuna', NULL, 1, 1, '1', 32, 1.9, 75, '2024-04-18 09:52:26', '2024-04-18 09:52:26'),
-	(3, 1, 'Isco', 'MC', 'Betis', NULL, 1, 1, '0', 31, 1.76, 74, '2024-04-18 09:52:31', '2024-04-18 09:52:31'),
+	(1, 9, 'Jude Bellingham', 'MC', 'Real Madrid', NULL, NULL, NULL, NULL, 20, 1.88, NULL, '2024-04-18 09:52:21', '2024-04-18 09:52:21'),
+	(2, 5, 'Ante Budimir', 'DL', 'Osasuna', NULL, NULL, NULL, NULL, 32, 1.9, 75, '2024-04-18 09:52:26', '2024-04-18 09:52:26'),
+	(3, 1, 'Isco', 'MC', 'Betis', NULL, NULL, NULL, NULL, 31, 1.76, 74, '2024-04-18 09:52:31', '2024-04-18 09:52:31'),
 	(4, 7, 'Sávio', 'DL', 'Girona', NULL, 1, NULL, NULL, 20, 1.76, NULL, '2024-04-18 09:52:35', '2024-04-18 09:52:35'),
 	(5, 6, 'Artem Dovbyk', 'DL', 'Girona', NULL, NULL, NULL, NULL, 26, 1.89, 76, '2024-04-18 09:52:39', '2024-04-18 09:52:39'),
-	(6, 2, 'Antoine Griezmann', 'DL', 'Atlético de Madrid', NULL, 1, 1, NULL, 33, 1.76, 71, '2024-04-18 09:52:44', '2024-04-18 09:52:44'),
+	(6, 2, 'Antoine Griezmann', 'DL', 'Atlético de Madrid', NULL, 1, 0, NULL, 33, 1.76, 71, '2024-04-18 09:52:44', '2024-04-18 09:52:44'),
 	(7, 3, 'Iñaki Williams', 'DL', 'Athletic Club', NULL, NULL, NULL, NULL, 29, 1.86, 76, '2024-04-18 09:52:48', '2024-04-18 09:52:48'),
 	(8, 1, 'Pepelu', 'MC', 'Valencia', NULL, NULL, NULL, NULL, 25, 1.85, 73, '2024-04-18 09:52:53', '2024-04-18 09:52:53'),
 	(9, 7, 'Gorka Guruzeta', 'DL', 'Athletic Club', NULL, NULL, NULL, NULL, 27, 1.88, NULL, '2024-04-18 09:52:58', '2024-04-18 09:52:58'),
-	(10, 1, 'Kirian Rodríguez', 'MC', 'Las Palmas', NULL, 1, NULL, NULL, 28, 1.8, NULL, '2024-04-18 09:53:02', '2024-04-18 09:53:02'),
+	(10, 1, 'Kirian Rodríguez', 'MC', 'Las Palmas', NULL, 1, 1, NULL, 28, 1.8, NULL, '2024-04-18 09:53:02', '2024-04-18 09:53:02'),
 	(11, 3, 'Borja Mayoral', 'DL', 'Getafe', NULL, NULL, NULL, NULL, 27, 1.82, 68, '2024-04-18 09:53:07', '2024-04-18 09:53:07'),
 	(12, 3, 'Aleix García', 'MC', 'Girona', NULL, NULL, NULL, NULL, 26, 1.73, 61, '2024-04-18 09:53:11', '2024-04-18 09:53:11'),
 	(13, 1, 'Takefusa Kubo', 'MC', 'Real Sociedad', NULL, NULL, NULL, NULL, 22, 1.74, 67, '2024-04-18 09:53:16', '2024-04-18 09:53:16'),
@@ -294,15 +311,15 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(20, 2, 'Rodrygo', 'DL', 'Real Madrid', 1, NULL, NULL, NULL, 23, 1.74, 62, '2024-04-18 09:53:47', '2024-04-18 09:53:47'),
 	(21, 3, 'Martín Zubimendi', 'MC', 'Real Sociedad', NULL, NULL, NULL, NULL, 25, 1.8, 74, '2024-04-18 09:53:51', '2024-04-18 09:53:51'),
 	(22, 1, 'Alexander Sørloth', 'DL', 'Villarreal', NULL, NULL, NULL, NULL, 28, 1.94, 90, '2024-04-18 09:53:56', '2024-04-18 09:53:56'),
-	(23, 2, 'Giorgi Mamardashvili', 'PT', 'Valencia', 1, NULL, 1, NULL, 23, 2, NULL, '2024-04-18 09:54:01', '2024-04-18 09:54:01'),
+	(23, 2, 'Giorgi Mamardashvili', 'PT', 'Valencia', 1, NULL, 0, NULL, 23, 2, NULL, '2024-04-18 09:54:01', '2024-04-18 09:54:01'),
 	(24, 9, 'Toni Kroos', 'MC', 'Real Madrid', NULL, NULL, NULL, NULL, 34, 1.83, 78, '2024-04-18 09:54:05', '2024-04-18 09:54:05'),
 	(25, 4, 'Brais Méndez', 'MC', 'Real Sociedad', NULL, NULL, NULL, NULL, 27, 1.84, 76, '2024-04-18 09:54:09', '2024-04-18 09:54:09'),
 	(26, 10, 'Álvaro Valles', 'PT', 'Las Palmas', NULL, NULL, NULL, NULL, 26, 1.92, NULL, '2024-04-18 09:54:14', '2024-04-18 09:54:14'),
 	(27, 3, 'Mason Greenwood', 'DL', 'Getafe', NULL, NULL, NULL, NULL, 22, 1.81, NULL, '2024-04-18 09:54:18', '2024-04-18 09:54:18'),
-	(28, NULL, 'Álvaro Morata', 'DL', 'Atlético de Madrid', NULL, NULL, NULL, NULL, 31, 1.89, 85, '2024-04-18 09:54:33', '2024-04-18 09:54:33'),
+	(28, 2, 'Álvaro Morata', 'DL', 'Atlético de Madrid', NULL, NULL, 1, NULL, 31, 1.89, 85, '2024-04-18 09:54:33', '2024-04-18 09:54:33'),
 	(29, 17, 'Unai Simón', 'PT', 'Athletic Club', NULL, NULL, NULL, NULL, 26, 1.89, 86, '2024-04-18 09:54:37', '2024-04-18 09:54:37'),
 	(30, 9, 'Óscar Mingueza', 'DF', 'Celta de Vigo', NULL, NULL, NULL, NULL, 24, 1.84, NULL, '2024-04-18 09:54:42', '2024-04-18 09:54:42'),
-	(31, 2, 'Robert Lewandowski', 'DL', 'Barcelona', 1, NULL, 1, NULL, 35, 1.84, 79, '2024-04-18 09:54:46', '2024-04-18 09:54:46'),
+	(31, 2, 'Robert Lewandowski', 'DL', 'Barcelona', 1, NULL, 0, NULL, 35, 1.84, 79, '2024-04-18 09:54:46', '2024-04-18 09:54:46'),
 	(32, 16, 'Nemanja Maksimović', 'MC', 'Getafe', NULL, NULL, NULL, NULL, 29, 1.84, 75, '2024-04-18 09:54:51', '2024-04-18 09:54:51'),
 	(33, 1, 'Iago Aspas', 'DL', 'Celta de Vigo', NULL, NULL, NULL, NULL, 36, 1.76, 67, '2024-04-18 09:54:55', '2024-04-18 09:54:55'),
 	(34, 9, 'Luis Rioja', 'MC', 'Alavés', NULL, NULL, NULL, NULL, 30, 1.73, NULL, '2024-04-18 09:54:59', '2024-04-18 09:54:59'),
@@ -312,13 +329,13 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(38, 2, 'Alex Baena', 'MC', 'Villarreal', NULL, NULL, NULL, NULL, 22, 1.74, NULL, '2024-04-18 09:55:17', '2024-04-18 09:55:17'),
 	(39, 1, 'Dani Carvajal', 'DF', 'Real Madrid', NULL, NULL, NULL, NULL, 32, 1.73, 73, '2024-04-18 09:55:21', '2024-04-18 09:55:21'),
 	(40, 1, 'Filip Jörgensen', 'PT', 'Villarreal', NULL, NULL, NULL, NULL, 22, 1.9, NULL, '2024-04-18 09:55:26', '2024-04-18 09:55:26'),
-	(41, 2, 'Viktor Tsygankov', 'MC', 'Girona', NULL, NULL, 1, NULL, 26, 1.78, 70, '2024-04-18 09:55:30', '2024-04-18 09:55:30'),
+	(41, 2, 'Viktor Tsygankov', 'MC', 'Girona', NULL, NULL, 0, NULL, 26, 1.78, 70, '2024-04-18 09:55:30', '2024-04-18 09:55:30'),
 	(42, 13, 'Sergi Cardona', 'DF', 'Las Palmas', NULL, NULL, NULL, NULL, 24, 1.86, NULL, '2024-04-18 09:55:35', '2024-04-18 09:55:35'),
-	(43, NULL, 'Chris Ramos', 'DL', 'Cádiz', NULL, NULL, NULL, NULL, 27, 1.93, NULL, '2024-04-18 09:55:49', '2024-04-18 09:55:49'),
+	(43, 9, 'Chris Ramos', 'DL', 'Cádiz', NULL, NULL, NULL, '0', 27, 1.93, NULL, '2024-04-18 09:55:49', '2024-04-18 09:55:49'),
 	(44, 11, 'Samuel Lino', 'MC', 'Atlético de Madrid', NULL, NULL, NULL, NULL, 24, 1.78, NULL, '2024-04-18 09:55:54', '2024-04-18 09:55:54'),
 	(45, 2, 'Yan Couto', 'DF', 'Girona', NULL, NULL, NULL, NULL, 21, 1.69, NULL, '2024-04-18 09:55:58', '2024-04-18 09:55:58'),
 	(46, 3, 'Predrag Rajković', 'PT', 'Mallorca', NULL, NULL, NULL, NULL, 28, 1.92, 70, '2024-04-18 09:56:03', '2024-04-18 09:56:03'),
-	(47, NULL, 'Marcos Llorente', 'MC', 'Atlético de Madrid', NULL, NULL, NULL, NULL, 29, 1.84, 71, '2024-04-18 09:56:17', '2024-04-18 09:56:17'),
+	(47, 2, 'Marcos Llorente', 'MC', 'Atlético de Madrid', 1, NULL, NULL, NULL, 29, 1.84, 71, '2024-04-18 09:56:17', '2024-04-18 09:56:17'),
 	(48, 8, 'David Soria', 'PT', 'Getafe', NULL, NULL, NULL, NULL, 31, 1.92, 85, '2024-04-18 09:56:22', '2024-04-18 09:56:22'),
 	(49, 5, 'Miguel Gutiérrez', 'DF', 'Girona', NULL, NULL, NULL, NULL, 22, 1.8, NULL, '2024-04-18 09:56:26', '2024-04-18 09:56:26'),
 	(50, 11, 'Jan Oblak', 'PT', 'Atlético de Madrid', NULL, NULL, NULL, NULL, 31, 1.89, 84, '2024-04-18 09:56:30', '2024-04-18 09:56:30'),
@@ -365,7 +382,7 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(91, 17, 'Álex Berenguer', 'MC', 'Athletic Club', NULL, NULL, NULL, NULL, 28, 1.75, 70, '2024-04-18 10:00:39', '2024-04-18 10:00:39'),
 	(92, 4, 'Cristian Portu', 'MC', 'Girona', NULL, NULL, NULL, NULL, 31, 1.67, 70, '2024-04-18 10:00:43', '2024-04-18 10:00:43'),
 	(93, 10, 'Samuel Costa', 'MC', 'Mallorca', NULL, NULL, NULL, NULL, 23, 1.83, NULL, '2024-04-18 10:00:48', '2024-04-18 10:00:48'),
-	(94, 9, 'Aitor Paredes', 'DF', 'Athletic Club', NULL, NULL, NULL, NULL, 23, 1.86, NULL, '2024-04-18 10:00:52', '2024-04-18 10:00:52'),
+	(94, 9, 'Aitor Paredes', 'DF', 'Athletic Club', NULL, NULL, 1, NULL, 23, 1.86, NULL, '2024-04-18 10:00:52', '2024-04-18 10:00:52'),
 	(95, 4, 'Igor Zubeldia', 'DF', 'Real Sociedad', NULL, NULL, NULL, NULL, 27, 1.8, 75, '2024-04-18 10:00:56', '2024-04-18 10:00:56'),
 	(96, NULL, 'Javi Muñoz', 'MC', 'Las Palmas', NULL, NULL, NULL, NULL, 29, 1.79, 75, '2024-04-18 10:01:11', '2024-04-18 10:01:11'),
 	(97, NULL, 'Ander Guevara', 'MC', 'Alavés', NULL, NULL, NULL, NULL, 26, 1.8, NULL, '2024-04-18 10:01:25', '2024-04-18 10:01:25'),
@@ -379,16 +396,16 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(105, 8, 'Dani Rodríguez', 'MC', 'Mallorca', NULL, NULL, NULL, NULL, 35, 1.77, 71, '2024-04-18 10:02:15', '2024-04-18 10:02:15'),
 	(106, 6, 'Marc Roca', 'MC', 'Betis', NULL, NULL, NULL, NULL, 27, 1.84, 74, '2024-04-18 10:02:19', '2024-04-18 10:02:19'),
 	(107, 1, 'Dani Parejo', 'MC', 'Villarreal', NULL, NULL, NULL, NULL, 35, 1.8, 74, '2024-04-18 10:02:23', '2024-04-18 10:02:23'),
-	(108, NULL, 'Jesus Areso', 'DF', 'Osasuna', NULL, NULL, NULL, NULL, 24, 1.83, NULL, '2024-04-18 10:02:38', '2024-04-18 10:02:38'),
+	(108, 2, 'Jesus Areso', 'DF', 'Osasuna', NULL, NULL, 1, NULL, 24, 1.83, NULL, '2024-04-18 10:02:38', '2024-04-18 10:02:38'),
 	(109, 2, 'Jules Koundé', 'DF', 'Barcelona', 1, NULL, NULL, NULL, 25, 1.8, 70, '2024-04-18 10:02:42', '2024-04-18 10:02:42'),
 	(110, 6, 'Aimar Oroz', 'MC', 'Osasuna', NULL, NULL, NULL, NULL, 22, 1.77, NULL, '2024-04-18 10:02:46', '2024-04-18 10:02:46'),
 	(111, NULL, 'Frenkie De Jong', 'MC', 'Barcelona', NULL, NULL, NULL, NULL, 26, 1.8, 70, '2024-04-18 10:03:00', '2024-04-18 10:03:00'),
-	(112, NULL, 'Fermín López', 'MC', 'Barcelona', NULL, NULL, NULL, NULL, 20, 1.76, NULL, '2024-04-18 10:03:15', '2024-04-18 10:03:15'),
+	(112, 1, 'Fermín López', 'MC', 'Barcelona', NULL, NULL, 1, NULL, 20, 1.76, NULL, '2024-04-18 10:03:15', '2024-04-18 10:03:15'),
 	(113, NULL, 'Ferran Torres', 'DL', 'Barcelona', NULL, NULL, NULL, NULL, 24, 1.85, 77, '2024-04-18 10:03:29', '2024-04-18 10:03:29'),
 	(114, 4, 'Ayoze Pérez', 'DL', 'Betis', NULL, NULL, NULL, NULL, 30, 1.8, 66, '2024-04-18 10:03:33', '2024-04-18 10:03:33'),
 	(115, 3, 'João Cancelo', 'DF', 'Barcelona', NULL, NULL, NULL, NULL, 29, 1.82, 74, '2024-04-18 10:03:37', '2024-04-18 10:03:37'),
 	(116, 5, 'Ronald Araújo', 'DF', 'Barcelona', NULL, NULL, NULL, NULL, 25, 1.91, 79, '2024-04-18 10:03:42', '2024-04-18 10:03:42'),
-	(117, 2, 'Aurélien Tchouaméni', 'MC', 'Real Madrid', 1, NULL, NULL, NULL, 24, 1.88, NULL, '2024-04-18 10:03:46', '2024-04-18 10:03:46'),
+	(117, 2, 'Aurélien Tchouaméni', 'MC', 'Real Madrid', 0, NULL, NULL, NULL, 24, 1.88, NULL, '2024-04-18 10:03:46', '2024-04-18 10:03:46'),
 	(118, NULL, 'Gerard Gumbau', 'MC', 'Granada', NULL, NULL, NULL, NULL, 29, 1.87, 77, '2024-04-18 10:04:01', '2024-04-18 10:04:01'),
 	(119, 8, 'Adri Embarba', 'MC', 'Almería', NULL, NULL, NULL, NULL, 31, 1.73, 66, '2024-04-18 10:04:05', '2024-04-18 10:04:05'),
 	(120, NULL, 'José Luis Gayà', 'DF', 'Valencia', NULL, NULL, NULL, NULL, 28, 1.72, 64, '2024-04-18 10:04:19', '2024-04-18 10:04:19'),
@@ -414,7 +431,7 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(140, 12, 'Vicente Guaita', 'PT', 'Celta de Vigo', NULL, NULL, NULL, NULL, 37, 1.9, 81, '2024-04-18 10:06:36', '2024-04-18 10:06:36'),
 	(141, NULL, 'Rodrigo Riquelme', 'MC', 'Atlético de Madrid', NULL, NULL, NULL, NULL, 24, 1.74, NULL, '2024-04-18 10:06:50', '2024-04-18 10:06:50'),
 	(142, 18, 'Alberto Moleiro', 'MC', 'Las Palmas', NULL, NULL, NULL, NULL, 20, 1.69, NULL, '2024-04-18 10:06:54', '2024-04-18 10:06:54'),
-	(143, NULL, 'Alex Suárez', 'DF', 'Las Palmas', NULL, NULL, NULL, NULL, 31, 1.79, NULL, '2024-04-18 10:07:09', '2024-04-18 10:07:09'),
+	(143, 9, 'Alex Suárez', 'DF', 'Las Palmas', NULL, NULL, NULL, '0', 31, 1.79, NULL, '2024-04-18 10:07:09', '2024-04-18 10:07:09'),
 	(144, 9, 'Sergio Ramos', 'DF', 'Sevilla', NULL, NULL, NULL, NULL, 38, 1.84, 75, '2024-04-18 10:07:13', '2024-04-18 10:07:13'),
 	(145, 12, 'Gonzalo Villar', 'MC', 'Granada', NULL, NULL, NULL, NULL, 26, 1.81, NULL, '2024-04-18 10:07:17', '2024-04-18 10:07:17'),
 	(146, 2, 'Guido Rodríguez', 'MC', 'Betis', NULL, NULL, NULL, NULL, 30, 1.85, 80, '2024-04-18 10:07:21', '2024-04-18 10:07:21'),
@@ -506,7 +523,7 @@ INSERT INTO `jugadores` (`id_player`, `id_equipo`, `nombre`, `posicion`, `equipo
 	(232, NULL, 'Omar Alderete', 'DF', 'Getafe', NULL, NULL, NULL, NULL, 27, 1.87, 77, '2024-04-18 10:19:48', '2024-04-18 10:19:48'),
 	(233, 11, 'Anastasios Douvikas', 'DL', 'Celta de Vigo', NULL, NULL, NULL, NULL, 24, 1.84, 78, '2024-04-18 10:19:52', '2024-04-18 10:19:52'),
 	(234, 6, 'Óliver Torres', 'MC', 'Sevilla', NULL, NULL, NULL, NULL, 29, 1.78, 70, '2024-04-18 10:19:56', '2024-04-18 10:19:56'),
-	(235, NULL, 'Kike Salas', 'DF', 'Sevilla', NULL, NULL, NULL, NULL, 22, 1.86, NULL, '2024-04-18 10:20:10', '2024-04-18 10:20:10'),
+	(235, 9, 'Kike Salas', 'DF', 'Sevilla', NULL, NULL, NULL, '0', 22, 1.86, NULL, '2024-04-18 10:20:10', '2024-04-18 10:20:10'),
 	(236, NULL, 'Íñigo Lekue', 'DF', 'Athletic Club', NULL, NULL, NULL, NULL, 30, 1.8, 73, '2024-04-18 10:20:25', '2024-04-18 10:20:25'),
 	(237, 3, 'Hugo Guillamón', 'MC', 'Valencia', NULL, NULL, NULL, NULL, 24, 1.78, NULL, '2024-04-18 10:20:29', '2024-04-18 10:20:29'),
 	(238, NULL, 'Rubén Peña', 'DF', 'Osasuna', NULL, NULL, NULL, NULL, 32, 1.7, 65, '2024-04-18 10:20:43', '2024-04-18 10:20:43'),
@@ -834,8 +851,8 @@ CREATE TABLE IF NOT EXISTS `notificaciones` (
 -- Volcando datos para la tabla draftgeniousiq2.notificaciones: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
 INSERT INTO `notificaciones` (`id_ntf`, `id_user`, `type`, `title`, `content`, `created_at`, `updated_at`) VALUES
-	(1, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Álvaro Morata', NULL, NULL),
-	(2, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Pedri', NULL, NULL);
+	(1, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Kirian Rodríguez', NULL, NULL),
+	(2, 2, 1, 'Recomendación de compra', 'DrafgeniusIQ1 reomienda la compra de Álvaro Morata', NULL, NULL);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.novedades_app
@@ -849,12 +866,12 @@ CREATE TABLE IF NOT EXISTS `novedades_app` (
   PRIMARY KEY (`id_novedad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.novedades_app: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.novedades_app: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `novedades_app` DISABLE KEYS */;
 INSERT INTO `novedades_app` (`id_novedad`, `titulo`, `subtitulo`, `img`, `created_at`, `updated_at`) VALUES
-	(1, 'Novedades Frescas: ¡No te Pierdas la última Actualizacion!', 'Eficiencia y Elegancia sin Complicaciones, Explora la Comodidad de Nuestra Nueva Interfaz', 'interfaz', '2024-05-17', '2024-05-17'),
-	(2, 'Nuevos modelos de IA disponibles', 'Prueba Nuestros Últimos Modelos de Predicción para Llevar tus estrategias al Siguiente Nivel!', 'ia', '2024-05-17', '2024-05-17'),
-	(3, 'Nuevos planes de subcripción disponibles', 'Accede a Funcionalidades Exclusivas y Contenidos Premium para llevar a tu equipo a la cima.', 'subscripcion', '2024-05-17', '2024-05-17');
+	(1, 'Novedades frescas: ¡No te pierdas la última actualización!', 'Eficiencia y elegancia sin complicaciones, explora la comodidad de nuestra nueva interfaz.', 'interfaz', '2024-05-17', '2024-05-17'),
+	(2, 'Nuevos modelos de IA disponibles', 'Prueba nuestros últimos modelos de predicción para llevar tus estrategias al siguiente nivel!', 'ia', '2024-05-17', '2024-05-17'),
+	(3, 'Nuevos planes de subcripción disponibles', 'Accede a funcionalidades exclusivas y contenidos premium para llevar a tu equipo a la cima.', 'subscripcion', '2024-05-17', '2024-05-17');
 /*!40000 ALTER TABLE `novedades_app` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.partidos
@@ -927,18 +944,35 @@ CREATE TABLE IF NOT EXISTS `predicciones_puntos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=528 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.predicciones_puntos: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.predicciones_puntos: ~24 rows (aproximadamente)
 /*!40000 ALTER TABLE `predicciones_puntos` DISABLE KEYS */;
 INSERT INTO `predicciones_puntos` (`id`, `id_player`, `valor`, `created_at`, `updated_at`) VALUES
-	(6, 1, 9, NULL, NULL),
-	(7, 2, 14, NULL, NULL),
-	(8, 3, 5, NULL, NULL),
-	(9, 6, 3, NULL, NULL),
-	(10, 23, 11, NULL, NULL),
-	(11, 31, 6, NULL, NULL),
-	(12, 41, 5, NULL, NULL);
+	(1, 23, 5, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(2, 99, 7, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(3, 31, 12, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(4, 20, 4, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(5, 45, 8, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(6, 6, 4, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(7, 41, 8, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(8, 90, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(9, 109, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(10, 192, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(11, 22, 13, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(12, 38, 8, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(13, 72, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(14, 117, 0, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(15, 206, 3, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(16, 47, 14, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(17, 21, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(18, 112, 11, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(19, 10, 7, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(20, 28, 6, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(21, 127, 3, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(22, 213, 5, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(23, 108, 7, '2024-05-30 18:46:40', '2024-05-30 18:46:40'),
+	(24, 94, 5, '2024-05-30 18:46:40', '2024-05-30 18:46:40');
 /*!40000 ALTER TABLE `predicciones_puntos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.predicciones_valor_mercado
@@ -950,18 +984,35 @@ CREATE TABLE IF NOT EXISTS `predicciones_valor_mercado` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_player` (`id_player`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.predicciones_valor_mercado: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.predicciones_valor_mercado: ~24 rows (aproximadamente)
 /*!40000 ALTER TABLE `predicciones_valor_mercado` DISABLE KEYS */;
 INSERT INTO `predicciones_valor_mercado` (`id`, `id_player`, `valor`, `created_at`, `updated_at`) VALUES
-	(1, 1, 21326000, NULL, NULL),
-	(2, 2, 26320800, NULL, NULL),
-	(3, 3, 15326600, NULL, NULL),
-	(6, 6, 6320800, NULL, NULL),
-	(23, 23, 12320800, NULL, NULL),
-	(31, 31, 5520800, NULL, NULL),
-	(41, 41, 21320800, NULL, NULL);
+	(1, 23, 14547000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(2, 99, 16828000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(3, 31, 23121000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(4, 20, 19501000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(5, 45, 13654000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(6, 6, 25211000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(7, 41, 18452000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(8, 90, 18774000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(9, 109, 15201000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(10, 192, 15659000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(11, 22, 20010000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(12, 38, 19810000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(13, 72, 15225000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(14, 117, 12987000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(15, 206, 4368000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(16, 47, 13589000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(17, 21, 11988000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(18, 112, 14121000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(19, 10, 14102000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(20, 28, 14366000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(21, 127, 10504000, '2024-05-30 18:05:21', '2024-05-30 18:05:21'),
+	(22, 213, 1526000, '2024-05-31 06:44:35', '2024-05-31 06:44:36'),
+	(23, 108, 7856000, '2024-05-31 06:44:35', '2024-05-31 06:44:36'),
+	(24, 94, 5986000, '2024-05-31 06:44:35', '2024-05-31 06:44:36');
 /*!40000 ALTER TABLE `predicciones_valor_mercado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.sessions
@@ -988,11 +1039,11 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 -- Volcando estructura para tabla draftgeniousiq2.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `id_team` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `id_team` bigint(20) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `rol` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `email_verified` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1000,15 +1051,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `id_team` (`id_team`)
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=257 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla draftgeniousiq2.users: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `id_team`, `name`, `rol`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', NULL, '$2y$12$NnkPvIXK.Nx8gYTJIOV.HOkFkQWEKiiMnxVOyjwwHk66cYA2L26xq', NULL, '2024-04-11 10:47:31', '2024-05-13 14:17:08'),
-	(3, 3, 'Alberto', 1, 'adminalberto@admin.com', NULL, '$2y$12$OLaFAKHDqPmE/hNx/PAb8ekJyiK1guC96CJ8.yq7clG2NH.snenUW', NULL, '2024-04-11 10:47:31', '2024-05-14 12:41:29'),
-	(41, 16, 'Daniel Gutiérrez', 0, '22060943@live.uem.es', NULL, '$2y$12$8tNdp56izqeinIsDDnnxZuwwUilJwNvMSk3ivGryzCtxNlyMD/oQm', NULL, '2024-05-02 10:01:10', '2024-05-14 12:41:32'),
-	(124, 0, 'guti10x_', 0, 'gt104515@gmail.com', NULL, '$2y$12$jtyuqy.bSvxYXCDZ4EhIP.jSy3x5jgdFZ.J2hP0sqL1U8Pr/qtKja', NULL, '2024-05-13 16:33:14', '2024-05-13 16:33:14');
+INSERT INTO `users` (`id`, `id_team`, `name`, `rol`, `email`, `email_verified`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 3, 'Admin', 1, 'admin@admin.com', 1, '$2y$12$kO6fUrKHSWjmOEQWNSVHIeK1h.66y9WOSk6/5dpU.b/J5vgkJd6mu', NULL, '2024-05-26 10:34:49', '2024-05-29 18:24:43'),
+	(2, 2, 'Grupo6', 0, 'm31_grupo6@outlook.com', 1, '$2y$12$92mMNoQ5qKgyeTS5w5Vn8OonpsF/dk9AU4JfSEBkDn4f26jHhcHyi', NULL, '2024-04-11 10:47:31', '2024-05-29 18:24:47'),
+	(243, 17, 'Andrew', 0, 'parraes@gmail.com', 1, '$2y$12$oSFKZCpVd4/QjyCvDPbuCuq2PhemSRpyT57me20INKgdjY.5W5h8S', NULL, '2024-05-29 19:44:48', '2024-05-29 21:37:33'),
+	(256, 1, 'Daniel Gutiérrez', 1, 'gt104515@gmail.com', 1, '$2y$12$Le/NgTahqDMDfVQWgoA8W.CNKJKc8CorDhTpq5OG4Zj4aAyxloUMa', NULL, '2024-05-29 19:59:43', '2024-05-29 21:37:16');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Volcando estructura para tabla draftgeniousiq2.valoraciones_app
@@ -1023,13 +1074,14 @@ CREATE TABLE IF NOT EXISTS `valoraciones_app` (
   `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id_valoration`),
   KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=423 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=424 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla draftgeniousiq2.valoraciones_app: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla draftgeniousiq2.valoraciones_app: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `valoraciones_app` DISABLE KEYS */;
 INSERT INTO `valoraciones_app` (`id_valoration`, `id_usuario`, `nombre_resenador`, `titulo`, `contenido`, `rating`, `updated_at`, `created_at`) VALUES
 	(1, 0, 'Andres Parra', 'Increibles predicciones', 'Esta aplicación ofrece predicciones muy precisas para la liga fantasy, con una interfaz fácil de usar. Recomiendo su uso.', 4, '2024-05-17', '2024-05-17'),
-	(2, 0, 'Álvaro Carrizosa', 'Muy recomnedable la aplicación', 'Esta aplicación es increíble. ¡La recomiendo totalmente!.  Desde que la descargué soy el lider de mi liga Fantasy.', NULL, '2024-05-17', '2024-05-17');
+	(2, 0, 'Álvaro Carrizosa', 'Muy recomnedable la aplicación', 'Esta aplicación es increíble. ¡La recomiendo totalmente!.  Desde que la descargué soy el lider de mi liga Fantasy.', NULL, '2024-05-17', '2024-05-17'),
+	(423, 41, 'Prubea', 'hshhs', 'wqs2sqw2', 4, NULL, NULL);
 /*!40000 ALTER TABLE `valoraciones_app` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
