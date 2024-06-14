@@ -1,10 +1,11 @@
 # DraftGeniousIQ2_APP
-
 Asistente personal para la generación de estrategias y recomendaciones sobre fichajes y alineaciones de jugadores para obtener la mejor plantilla en el contexto de una liga fantasy, mediante modelos y algoritmos de inteligencia artificial.
 
-En este repositorio podrás encontrar las diferentes subpartes de DraftGeniousIQ2, incluyendo la base de datos, la interfaz, la API, los scrapers de datos y los scripts y modelos de IA de la aplicación.
+## Demo de la aplicación
+https://github.com/guti10x/DraftGeniousIQ2_APP/assets/82153822/b839fce3-6e7e-47c4-ac54-388c8c4ec837
 
 ## Diagrama de arquitectura de la aplicación
+En este repositorio podrás encontrar las diferentes subpartes de DraftGeniousIQ2, incluyendo la base de datos, la interfaz, la API, los scrapers de datos y los scripts y modelos de IA de la aplicación.
 
 - `api/` - Contiene la API desarrollada en Laravel y PHP de la aplicación.
 - `bd/` - Contiene el código SQL de la base de datos de la aplicación.
