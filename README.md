@@ -1,4 +1,15 @@
 # DraftGeniousIQ2_APP
+
+<p align="left">
+  <img src="https://img.shields.io/badge/version-2.0-green">
+  <img src="https://img.shields.io/badge/test-✓-green">
+  <img src="https://img.shields.io/badge/interface-Angular-blueviolet">
+  <img src="https://img.shields.io/badge/database-MySQL-informational">
+  <img src="https://img.shields.io/badge/API-Laravel-red">
+  <img src="https://img.shields.io/badge/scrapers-Python-blue">
+  <img src="https://img.shields.io/badge/IA-Python-yellow">
+</p>
+
 Asistente personal para la generación de estrategias y recomendaciones sobre fichajes y alineaciones de jugadores para obtener la mejor plantilla en el contexto de una liga fantasy, mediante modelos y algoritmos de inteligencia artificial.
 
 ## Demo de la aplicación
